@@ -110,10 +110,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ol>
 <p><em>What other geometries could you use here besides geom_point? Provide an actual plot of another geometry being used here and why it’s good or bad for visualizing these data.</em></p>
 <p>I attempted to use a stacked bar plot, but this proved to be a difficult task, and not nearly as good as the bubble plot in making comparisons. I had to divide up the income into brackets so that the the bars would have meaning with 3 variables. The mean life expectancy was used for each region and then the bars were grouped in the colors of each region. Even after doing all this, the population variable is not accounted for. The bubble plot is definitely the better play is more appropriate in showing multiple variables.</p>
-<div class="cell" data-outputid="ace1f6da-f85f-40fd-ff53-dd7ba05889f9" data-execution_count="173">
+<div class="cell" data-outputid="34fc39dc-e0a6-4e55-e712-41769316e337" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> plotnine <span class="im">as</span> p9</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> plotnine <span class="im">import</span> ggplot, aes, geom_point, theme_light, labs, scale_x_log10, scale_y_continuous, geom_text, scale_fill_manual, annotate</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> plotnine <span class="im">import</span> ggplot, aes, geom_point, theme_light, labs, scale_x_log10, scale_size_continuous, scale_y_continuous, geom_text, scale_fill_manual, annotate</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Loading and cleaning the data</span></span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(<span class="st">'/content/drive/My Drive/q1data.csv'</span>)</span>
@@ -135,24 +135,25 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>plot <span class="op">=</span> (ggplot(df, aes(x<span class="op">=</span><span class="st">'income'</span>, y<span class="op">=</span><span class="st">'life_exp'</span>, fill<span class="op">=</span><span class="st">'four_regions'</span>, size<span class="op">=</span><span class="st">'population'</span>))</span>
 <span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>        <span class="op">+</span> geom_text(aes(x<span class="op">=</span><span class="dv">9000</span>, y<span class="op">=</span><span class="dv">55</span>), label<span class="op">=</span><span class="st">"2010"</span>, size<span class="op">=</span><span class="dv">120</span>, va<span class="op">=</span><span class="st">'center'</span>, ha<span class="op">=</span><span class="st">'center'</span>, color<span class="op">=</span><span class="st">"lightgray"</span>, fontweight<span class="op">=</span><span class="st">"normal"</span>, alpha<span class="op">=</span><span class="fl">0.9</span>)</span>
 <span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>        <span class="op">+</span> geom_point(shape<span class="op">=</span><span class="st">'o'</span>)</span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>        <span class="op">+</span> theme_light()</span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>        <span class="op">+</span> labs(x<span class="op">=</span><span class="st">"Income"</span>, y<span class="op">=</span><span class="st">"Life expectancy"</span>)</span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>        <span class="op">+</span> scale_x_log10(breaks<span class="op">=</span>breaks_values, labels<span class="op">=</span>labels_values)</span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>        <span class="op">+</span> scale_y_continuous(limits<span class="op">=</span>[<span class="dv">20</span>, <span class="dv">90</span>], breaks<span class="op">=</span><span class="bu">range</span>(<span class="dv">20</span>, <span class="dv">91</span>, <span class="dv">10</span>))</span>
-<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>        <span class="op">+</span> scale_fill_manual(values<span class="op">=</span>region_colors)</span>
-<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>        <span class="op">+</span> annotate(<span class="st">"text"</span>, x<span class="op">=</span><span class="dv">128000</span>, y<span class="op">=</span><span class="dv">20</span>, label<span class="op">=</span><span class="st">"per person (GDP/capita, PPP$ inflation-adjusted)"</span>, size<span class="op">=</span><span class="dv">6</span>, ha<span class="op">=</span><span class="st">'right'</span>, alpha<span class="op">=</span><span class="fl">0.6</span>)</span>
-<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>        <span class="op">+</span> annotate(<span class="st">"text"</span>, x<span class="op">=</span><span class="dv">450</span>, y<span class="op">=</span><span class="dv">88</span>, label<span class="op">=</span><span class="st">"years"</span>, size<span class="op">=</span><span class="dv">8</span>, ha<span class="op">=</span><span class="st">'left'</span>, alpha<span class="op">=</span><span class="fl">0.5</span>, angle<span class="op">=</span><span class="dv">90</span>)</span>
-<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>       )</span>
-<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>plot.draw()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>        <span class="op">+</span> scale_size_continuous(<span class="bu">range</span><span class="op">=</span>[<span class="dv">1</span>, <span class="dv">15</span>])</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>        <span class="op">+</span> theme_light()</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>        <span class="op">+</span> labs(x<span class="op">=</span><span class="st">"Income"</span>, y<span class="op">=</span><span class="st">"Life expectancy"</span>)</span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>        <span class="op">+</span> scale_x_log10(breaks<span class="op">=</span>breaks_values, labels<span class="op">=</span>labels_values)</span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>        <span class="op">+</span> scale_y_continuous(limits<span class="op">=</span>[<span class="dv">20</span>, <span class="dv">90</span>], breaks<span class="op">=</span><span class="bu">range</span>(<span class="dv">20</span>, <span class="dv">91</span>, <span class="dv">10</span>))</span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>        <span class="op">+</span> scale_fill_manual(values<span class="op">=</span>region_colors)</span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>        <span class="op">+</span> annotate(<span class="st">"text"</span>, x<span class="op">=</span><span class="dv">128000</span>, y<span class="op">=</span><span class="dv">20</span>, label<span class="op">=</span><span class="st">"per person (GDP/capita, PPP$ inflation-adjusted)"</span>, size<span class="op">=</span><span class="dv">6</span>, ha<span class="op">=</span><span class="st">'right'</span>, alpha<span class="op">=</span><span class="fl">0.6</span>)</span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>        <span class="op">+</span> annotate(<span class="st">"text"</span>, x<span class="op">=</span><span class="dv">450</span>, y<span class="op">=</span><span class="dv">88</span>, label<span class="op">=</span><span class="st">"years"</span>, size<span class="op">=</span><span class="dv">8</span>, ha<span class="op">=</span><span class="st">'left'</span>, alpha<span class="op">=</span><span class="fl">0.5</span>, angle<span class="op">=</span><span class="dv">90</span>)</span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>       )</span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>plot.draw()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>/usr/local/lib/python3.10/dist-packages/plotnine/layer.py:364: PlotnineWarning: geom_point : Removed 2 rows containing missing values.</code></pre>
 </div>
-<div class="cell-output cell-output-display" data-execution_count="173">
+<div class="cell-output cell-output-display" data-execution_count="6">
 <p><img src="Lab1_JosephLee_files/figure-html/cell-2-output-2.png" class="img-fluid"></p>
 </div>
 </div>
-<div class="cell" data-outputid="d934d72c-f6c1-4bcc-f26f-828bd0d1c5d9" data-execution_count="186">
+<div class="cell" data-outputid="d934d72c-f6c1-4bcc-f26f-828bd0d1c5d9">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> plotnine <span class="im">as</span> p9</span>
@@ -200,7 +201,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ol>
 <p><em>What other geometries could you use here besides geom_point? Provide an actual plot of another geometry being used here and why it’s good or bad for visualizing these data.</em></p>
 <p>I tried doing a ridge plot here and it provides a clear view of skewness, mode, min/max and other characteristics of distributions. It also has the advantage of getting rid of overplotting. A disadvantage is that individual data points are not shown, particularly outliers are not clearly visible in this type of plot. Also, the data needed to be merged into one column for this type of plot to show imports and exports side by side.</p>
-<div class="cell" data-outputid="866061aa-d487-4f8c-e45a-87402f279e6a" data-execution_count="155">
+<div class="cell" data-outputid="b7e82a19-afab-4fcb-a491-e7840e9c17b5" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> plotnine <span class="im">as</span> p9</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> plotnine <span class="im">import</span> ggplot, aes, geom_point, theme_light, labs, scale_x_continuous, scale_y_continuous, geom_text, scale_fill_manual</span>
@@ -223,22 +224,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>plot <span class="op">=</span> (ggplot(df2, aes(x<span class="op">=</span><span class="st">'exports'</span>, y<span class="op">=</span><span class="st">'imports'</span>, fill<span class="op">=</span><span class="st">'four_regions'</span>, size<span class="op">=</span><span class="st">'energy'</span>))</span>
 <span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>        <span class="op">+</span> geom_text(aes(x<span class="op">=</span><span class="dv">120</span>, y<span class="op">=</span><span class="dv">150</span>), label<span class="op">=</span><span class="st">"1997"</span>, size<span class="op">=</span><span class="dv">120</span>, va<span class="op">=</span><span class="st">'center'</span>, ha<span class="op">=</span><span class="st">'center'</span>, color<span class="op">=</span><span class="st">"lightgray"</span>, fontweight<span class="op">=</span><span class="st">"normal"</span>, alpha<span class="op">=</span><span class="fl">0.9</span>)</span>
 <span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>        <span class="op">+</span> geom_point(shape<span class="op">=</span><span class="st">'o'</span>)</span>
-<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>        <span class="op">+</span> theme_light()</span>
-<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>        <span class="op">+</span> labs(x<span class="op">=</span><span class="st">"Exports(\</span><span class="sc">% o</span><span class="st">f GDP)"</span>, y<span class="op">=</span><span class="st">"Imports(\</span><span class="sc">% o</span><span class="st">f GDP)"</span>)</span>
-<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>        <span class="op">+</span> scale_x_continuous(limits<span class="op">=</span>[<span class="dv">0</span>, <span class="dv">220</span>], breaks<span class="op">=</span><span class="bu">range</span>(<span class="dv">0</span>, <span class="dv">221</span>, <span class="dv">20</span>))</span>
-<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>        <span class="op">+</span> scale_y_continuous(limits<span class="op">=</span>[<span class="dv">0</span>, <span class="dv">400</span>], breaks<span class="op">=</span><span class="bu">range</span>(<span class="dv">0</span>, <span class="dv">401</span>, <span class="dv">50</span>))</span>
-<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>        <span class="op">+</span> scale_fill_manual(values<span class="op">=</span>region_colors)</span>
-<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>       )</span>
-<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a>plot.draw()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>        <span class="op">+</span> scale_size_continuous(<span class="bu">range</span><span class="op">=</span>[<span class="dv">1</span>, <span class="dv">10</span>])</span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>        <span class="op">+</span> theme_light()</span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>        <span class="op">+</span> labs(x<span class="op">=</span><span class="st">"Exports(\</span><span class="sc">% o</span><span class="st">f GDP)"</span>, y<span class="op">=</span><span class="st">"Imports(\</span><span class="sc">% o</span><span class="st">f GDP)"</span>)</span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>        <span class="op">+</span> scale_x_continuous(limits<span class="op">=</span>[<span class="dv">0</span>, <span class="dv">220</span>], breaks<span class="op">=</span><span class="bu">range</span>(<span class="dv">0</span>, <span class="dv">221</span>, <span class="dv">20</span>))</span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>        <span class="op">+</span> scale_y_continuous(limits<span class="op">=</span>[<span class="dv">0</span>, <span class="dv">400</span>], breaks<span class="op">=</span><span class="bu">range</span>(<span class="dv">0</span>, <span class="dv">401</span>, <span class="dv">50</span>))</span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>        <span class="op">+</span> scale_fill_manual(values<span class="op">=</span>region_colors)</span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>       )</span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a>plot.draw()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>/usr/local/lib/python3.10/dist-packages/plotnine/layer.py:364: PlotnineWarning: geom_point : Removed 3 rows containing missing values.</code></pre>
 </div>
-<div class="cell-output cell-output-display" data-execution_count="155">
+<div class="cell-output cell-output-display" data-execution_count="4">
 <p><img src="Lab1_JosephLee_files/figure-html/cell-4-output-2.png" class="img-fluid"></p>
 </div>
 </div>
-<div class="cell" data-outputid="49adc40f-307a-4cd2-8787-3d07033dd211" data-execution_count="181">
+<div class="cell" data-outputid="49adc40f-307a-4cd2-8787-3d07033dd211">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> plotnine <span class="im">as</span> p9</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> plotnine <span class="im">import</span> ggplot, geom_density, facet_wrap, theme_light, labs</span>
@@ -280,7 +282,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ol>
 <p><em>What other geometries could you use here besides geom_point? Provide an actual plot of another geometry being used here and why it’s good or bad for visualizing these data.</em></p>
 <p>I tried a faceted boxplot here with the four regions as the facets and using jitter to show the income. I’m not so sure this is an appropriate way to present this data in a meaningful way. Again, this is a nice way to see each region by themselves, but I’m not sure if I configured the plot in the correct manner, the jitter seems confusing, and when compared to the bubble plot, this is inferior.</p>
-<div class="cell" data-outputid="1e85b6d9-b5e0-4ad2-b6c4-960ad27525c8" data-execution_count="163">
+<div class="cell" data-outputid="2f0f74a5-afa4-4e10-fd76-33944642cb79" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> plotnine <span class="im">as</span> p9</span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> plotnine <span class="im">import</span> ggplot, aes, geom_point, theme_light, labs, scale_x_continuous, scale_y_log10, geom_text, scale_fill_manual, annotate</span>
@@ -307,24 +309,25 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a>plot <span class="op">=</span> (ggplot(df4, aes(x<span class="op">=</span><span class="st">'internet_users'</span>, y<span class="op">=</span><span class="st">'gdp'</span>, fill<span class="op">=</span><span class="st">'four_regions'</span>, size<span class="op">=</span><span class="st">'income'</span>))</span>
 <span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a>        <span class="op">+</span> geom_text(aes(x<span class="op">=</span><span class="dv">50</span>, y<span class="op">=</span><span class="dv">5000</span>), label<span class="op">=</span><span class="st">"2001"</span>, size<span class="op">=</span><span class="dv">80</span>, va<span class="op">=</span><span class="st">'center'</span>, ha<span class="op">=</span><span class="st">'center'</span>, color<span class="op">=</span><span class="st">"lightgray"</span>, fontweight<span class="op">=</span><span class="st">"normal"</span>, alpha<span class="op">=</span><span class="fl">0.9</span>)</span>
 <span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a>        <span class="op">+</span> geom_point(shape<span class="op">=</span><span class="st">'o'</span>)</span>
-<span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a>        <span class="op">+</span> theme_light()</span>
-<span id="cb8-28"><a href="#cb8-28" aria-hidden="true" tabindex="-1"></a>        <span class="op">+</span> labs(x<span class="op">=</span><span class="st">"Individuals using the Internet"</span>, y<span class="op">=</span><span class="st">"GDP/capita"</span>)</span>
-<span id="cb8-29"><a href="#cb8-29" aria-hidden="true" tabindex="-1"></a>        <span class="op">+</span> scale_x_continuous(limits<span class="op">=</span>[<span class="dv">0</span>, <span class="dv">100</span>], breaks<span class="op">=</span><span class="bu">range</span>(<span class="dv">0</span>, <span class="dv">91</span>, <span class="dv">10</span>))</span>
-<span id="cb8-30"><a href="#cb8-30" aria-hidden="true" tabindex="-1"></a>        <span class="op">+</span> scale_y_log10(breaks<span class="op">=</span>breaks_values, labels<span class="op">=</span>labels_values)</span>
-<span id="cb8-31"><a href="#cb8-31" aria-hidden="true" tabindex="-1"></a>        <span class="op">+</span> scale_fill_manual(values<span class="op">=</span>region_colors)</span>
-<span id="cb8-32"><a href="#cb8-32" aria-hidden="true" tabindex="-1"></a>        <span class="op">+</span> annotate(<span class="st">"text"</span>, x<span class="op">=</span><span class="dv">1</span>, y<span class="op">=</span><span class="dv">60000</span>, label<span class="op">=</span><span class="st">"US$, inflation-adjusted"</span>, size<span class="op">=</span><span class="dv">8</span>, alpha<span class="op">=</span><span class="fl">0.5</span>, angle<span class="op">=</span><span class="dv">90</span>)</span>
-<span id="cb8-33"><a href="#cb8-33" aria-hidden="true" tabindex="-1"></a>        <span class="op">+</span> annotate(<span class="st">"text"</span>, x<span class="op">=</span><span class="dv">90</span>, y<span class="op">=</span><span class="dv">200</span>, label<span class="op">=</span><span class="st">"\</span><span class="sc">% o</span><span class="st">f population"</span>, size<span class="op">=</span><span class="dv">8</span>, alpha<span class="op">=</span><span class="fl">0.5</span>)</span>
-<span id="cb8-34"><a href="#cb8-34" aria-hidden="true" tabindex="-1"></a>       )</span>
-<span id="cb8-35"><a href="#cb8-35" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-36"><a href="#cb8-36" aria-hidden="true" tabindex="-1"></a>plot.draw()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a>        <span class="op">+</span> scale_size_continuous(<span class="bu">range</span><span class="op">=</span>[<span class="dv">1</span>, <span class="dv">10</span>])</span>
+<span id="cb8-28"><a href="#cb8-28" aria-hidden="true" tabindex="-1"></a>        <span class="op">+</span> theme_light()</span>
+<span id="cb8-29"><a href="#cb8-29" aria-hidden="true" tabindex="-1"></a>        <span class="op">+</span> labs(x<span class="op">=</span><span class="st">"Individuals using the Internet"</span>, y<span class="op">=</span><span class="st">"GDP/capita"</span>)</span>
+<span id="cb8-30"><a href="#cb8-30" aria-hidden="true" tabindex="-1"></a>        <span class="op">+</span> scale_x_continuous(limits<span class="op">=</span>[<span class="dv">0</span>, <span class="dv">100</span>], breaks<span class="op">=</span><span class="bu">range</span>(<span class="dv">0</span>, <span class="dv">91</span>, <span class="dv">10</span>))</span>
+<span id="cb8-31"><a href="#cb8-31" aria-hidden="true" tabindex="-1"></a>        <span class="op">+</span> scale_y_log10(breaks<span class="op">=</span>breaks_values, labels<span class="op">=</span>labels_values)</span>
+<span id="cb8-32"><a href="#cb8-32" aria-hidden="true" tabindex="-1"></a>        <span class="op">+</span> scale_fill_manual(values<span class="op">=</span>region_colors)</span>
+<span id="cb8-33"><a href="#cb8-33" aria-hidden="true" tabindex="-1"></a>        <span class="op">+</span> annotate(<span class="st">"text"</span>, x<span class="op">=</span><span class="dv">1</span>, y<span class="op">=</span><span class="dv">60000</span>, label<span class="op">=</span><span class="st">"US$, inflation-adjusted"</span>, size<span class="op">=</span><span class="dv">8</span>, alpha<span class="op">=</span><span class="fl">0.5</span>, angle<span class="op">=</span><span class="dv">90</span>)</span>
+<span id="cb8-34"><a href="#cb8-34" aria-hidden="true" tabindex="-1"></a>        <span class="op">+</span> annotate(<span class="st">"text"</span>, x<span class="op">=</span><span class="dv">90</span>, y<span class="op">=</span><span class="dv">200</span>, label<span class="op">=</span><span class="st">"\</span><span class="sc">% o</span><span class="st">f population"</span>, size<span class="op">=</span><span class="dv">8</span>, alpha<span class="op">=</span><span class="fl">0.5</span>)</span>
+<span id="cb8-35"><a href="#cb8-35" aria-hidden="true" tabindex="-1"></a>       )</span>
+<span id="cb8-36"><a href="#cb8-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-37"><a href="#cb8-37" aria-hidden="true" tabindex="-1"></a>plot.draw()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>/usr/local/lib/python3.10/dist-packages/plotnine/layer.py:364: PlotnineWarning: geom_point : Removed 11 rows containing missing values.</code></pre>
 </div>
-<div class="cell-output cell-output-display" data-execution_count="163">
+<div class="cell-output cell-output-display" data-execution_count="8">
 <p><img src="Lab1_JosephLee_files/figure-html/cell-6-output-2.png" class="img-fluid"></p>
 </div>
 </div>
-<div class="cell" data-outputid="82f767f3-94e6-4392-f506-eef24a68c031" data-execution_count="168">
+<div class="cell" data-outputid="82f767f3-94e6-4392-f506-eef24a68c031">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> plotnine <span class="im">as</span> p9</span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> plotnine <span class="im">import</span> ggplot, aes, geom_boxplot, geom_jitter, facet_wrap, theme_light, labs, scale_y_log10, scale_fill_manual</span>
