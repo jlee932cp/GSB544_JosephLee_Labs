@@ -3063,7 +3063,7 @@ vertical-align: -.125em;
 <figcaption class="figure-caption">Coffee Lovers Unite!</figcaption>
 </figure>
 </div>
-<div class="cell" data-outputid="9730cfb3-29e2-499c-ad54-096da5455584" data-execution_count="219">
+<div class="cell" data-outputid="d8bf8ba7-9a59-411e-8930-78f94a8fd68f" data-execution_count="31">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Making sure the &#39;us&#39; library is installed</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>pip install us</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -3071,7 +3071,7 @@ vertical-align: -.125em;
 Requirement already satisfied: jellyfish==0.11.2 in /usr/local/lib/python3.10/dist-packages (from us) (0.11.2)</code></pre>
 </div>
 </div>
-<div class="cell" data-execution_count="217">
+<div class="cell" data-execution_count="34">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> requests</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> bs4 <span class="im">import</span> BeautifulSoup</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
@@ -3080,7 +3080,7 @@ Requirement already satisfied: jellyfish==0.11.2 in /usr/local/lib/python3.10/di
 </div>
 <section id="scrape-the-location-counts-for-the-united-states" class="level1">
 <h1><strong>Scrape the Location Counts for the United States</strong></h1>
-<div class="cell" data-outputid="86604b2a-d4da-4985-8021-51c5d69f7116" data-execution_count="218">
+<div class="cell" data-outputid="8400e887-a8c2-4990-d05d-ef16de1d66d8" data-execution_count="35">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Listing coffee chain URLs and scraping locations and locations count</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>chains_urls <span class="op">=</span> {</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;Starbucks&quot;</span>: <span class="st">&quot;https://www.menuism.com/restaurant-locations/starbucks-coffee-39564&quot;</span>,</span>
@@ -3115,7 +3115,7 @@ Requirement already satisfied: jellyfish==0.11.2 in /usr/local/lib/python3.10/di
 <pre><code>{&#39;Starbucks&#39;: [&#39;Alaska Starbucks Coffee locations (24)&#39;, &#39;Alabama Starbucks Coffee locations (73)&#39;, &#39;Arkansas Starbucks Coffee locations (33)&#39;, &#39;Arizona Starbucks Coffee locations (279)&#39;, &#39;California Starbucks Coffee locations (2362)&#39;, &#39;Colorado Starbucks Coffee locations (371)&#39;, &#39;Connecticut Starbucks Coffee locations (107)&#39;, &#39;District of Columbia Starbucks Coffee locations (72)&#39;, &#39;Delaware Starbucks Coffee locations (20)&#39;, &#39;Florida Starbucks Coffee locations (616)&#39;, &#39;Georgia Starbucks Coffee locations (248)&#39;, &#39;Hawaii Starbucks Coffee locations (72)&#39;, &#39;Iowa Starbucks Coffee locations (49)&#39;, &#39;Idaho Starbucks Coffee locations (57)&#39;, &#39;Illinois Starbucks Coffee locations (455)&#39;, &#39;Indiana Starbucks Coffee locations (193)&#39;, &#39;Kansas Starbucks Coffee locations (65)&#39;, &#39;Kentucky Starbucks Coffee locations (69)&#39;, &#39;Louisiana Starbucks Coffee locations (76)&#39;, &#39;Massachusetts Starbucks Coffee locations (208)&#39;, &#39;Maryland Starbucks Coffee locations (212)&#39;, &#39;Maine Starbucks Coffee locations (22)&#39;, &#39;Michigan Starbucks Coffee locations (196)&#39;, &#39;Minnesota Starbucks Coffee locations (140)&#39;, &#39;Missouri Starbucks Coffee locations (118)&#39;, &#39;Mississippi Starbucks Coffee locations (23)&#39;, &#39;Montana Starbucks Coffee locations (17)&#39;, &#39;North Carolina Starbucks Coffee locations (181)&#39;, &#39;North Dakota Starbucks Coffee locations (15)&#39;, &#39;Nebraska Starbucks Coffee locations (30)&#39;, &#39;New Hampshire Starbucks Coffee locations (22)&#39;, &#39;New Jersey Starbucks Coffee locations (154)&#39;, &#39;New Mexico Starbucks Coffee locations (56)&#39;, &#39;Nevada Starbucks Coffee locations (188)&#39;, &#39;New York Starbucks Coffee locations (492)&#39;, &#39;Ohio Starbucks Coffee locations (266)&#39;, &#39;Oklahoma Starbucks Coffee locations (62)&#39;, &#39;Oregon Starbucks Coffee locations (279)&#39;, &#39;Pennsylvania Starbucks Coffee locations (279)&#39;, &#39;Rhode Island Starbucks Coffee locations (21)&#39;, &#39;South Carolina Starbucks Coffee locations (65)&#39;, &#39;South Dakota Starbucks Coffee locations (14)&#39;, &#39;Tennessee Starbucks Coffee locations (126)&#39;, &#39;Texas Starbucks Coffee locations (720)&#39;, &#39;Utah Starbucks Coffee locations (59)&#39;, &#39;Virginia Starbucks Coffee locations (300)&#39;, &#39;Vermont Starbucks Coffee locations (6)&#39;, &#39;Washington Starbucks Coffee locations (634)&#39;, &#39;Wisconsin Starbucks Coffee locations (119)&#39;, &#39;West Virginia Starbucks Coffee locations (13)&#39;, &#39;Wyoming Starbucks Coffee locations (16)&#39;, &#39;County Dublin Starbucks Coffee locations (1)&#39;, &#39;England Starbucks Coffee locations (1)&#39;, &#39;Greater London Starbucks Coffee locations (3)&#39;, &#39;Surrey Starbucks Coffee locations (1)&#39;, &#39;Madrid Starbucks Coffee locations (1)&#39;, &#39;British Columbia Starbucks Coffee locations (1)&#39;, &#39;Ontario Starbucks Coffee locations (1)&#39;], &#39;Dunkin’ Donuts&#39;: [&quot;Alabama Dunkin&#39; Donuts locations (1)&quot;, &quot;Arkansas Dunkin&#39; Donuts locations (11)&quot;, &quot;Arizona Dunkin&#39; Donuts locations (74)&quot;, &quot;California Dunkin&#39; Donuts locations (46)&quot;, &quot;Colorado Dunkin&#39; Donuts locations (5)&quot;, &quot;Connecticut Dunkin&#39; Donuts locations (406)&quot;, &quot;District of Columbia Dunkin&#39; Donuts locations (15)&quot;, &quot;Delaware Dunkin&#39; Donuts locations (57)&quot;, &quot;Florida Dunkin&#39; Donuts locations (654)&quot;, &quot;Georgia Dunkin&#39; Donuts locations (147)&quot;, &quot;Hawaii Dunkin&#39; Donuts locations (1)&quot;, &quot;Iowa Dunkin&#39; Donuts locations (14)&quot;, &quot;Illinois Dunkin&#39; Donuts locations (579)&quot;, &quot;Indiana Dunkin&#39; Donuts locations (51)&quot;, &quot;Kansas Dunkin&#39; Donuts locations (12)&quot;, &quot;Kentucky Dunkin&#39; Donuts locations (34)&quot;, &quot;Louisiana Dunkin&#39; Donuts locations (5)&quot;, &quot;Massachusetts Dunkin&#39; Donuts locations (1101)&quot;, &quot;Maryland Dunkin&#39; Donuts locations (201)&quot;, &quot;Maine Dunkin&#39; Donuts locations (102)&quot;, &quot;Michigan Dunkin&#39; Donuts locations (91)&quot;, &quot;Minnesota Dunkin&#39; Donuts locations (6)&quot;, &quot;Missouri Dunkin&#39; Donuts locations (21)&quot;, &quot;Mississippi Dunkin&#39; Donuts locations (3)&quot;, &quot;North Carolina Dunkin&#39; Donuts locations (63)&quot;, &quot;Nebraska Dunkin&#39; Donuts locations (9)&quot;, &quot;New Hampshire Dunkin&#39; Donuts locations (185)&quot;, &quot;New Jersey Dunkin&#39; Donuts locations (477)&quot;, &quot;New Mexico Dunkin&#39; Donuts locations (7)&quot;, &quot;Nevada Dunkin&#39; Donuts locations (26)&quot;, &quot;New York Dunkin&#39; Donuts locations (1022)&quot;, &quot;Ohio Dunkin&#39; Donuts locations (116)&quot;, &quot;Oklahoma Dunkin&#39; Donuts locations (6)&quot;, &quot;Oregon Dunkin&#39; Donuts locations (1)&quot;, &quot;Pennsylvania Dunkin&#39; Donuts locations (402)&quot;, &quot;Rhode Island Dunkin&#39; Donuts locations (142)&quot;, &quot;South Carolina Dunkin&#39; Donuts locations (15)&quot;, &quot;Tennessee Dunkin&#39; Donuts locations (55)&quot;, &quot;Texas Dunkin&#39; Donuts locations (93)&quot;, &quot;Utah Dunkin&#39; Donuts locations (7)&quot;, &quot;Virginia Dunkin&#39; Donuts locations (147)&quot;, &quot;Vermont Dunkin&#39; Donuts locations (34)&quot;, &quot;Washington Dunkin&#39; Donuts locations (2)&quot;, &quot;Wisconsin Dunkin&#39; Donuts locations (30)&quot;, &quot;West Virginia Dunkin&#39; Donuts locations (5)&quot;, &quot;Prince Edward Island Dunkin&#39; Donuts locations (2)&quot;, &quot;Quebec Dunkin&#39; Donuts locations (4)&quot;], &#39;Peet’s Coffee &amp; Tea&#39;: [&quot;California Peet&#39;s Coffee &amp; Tea locations (163)&quot;, &quot;Colorado Peet&#39;s Coffee &amp; Tea locations (3)&quot;, &quot;Hawaii Peet&#39;s Coffee &amp; Tea locations (1)&quot;, &quot;Illinois Peet&#39;s Coffee &amp; Tea locations (3)&quot;, &quot;Nevada Peet&#39;s Coffee &amp; Tea locations (1)&quot;, &quot;Oregon Peet&#39;s Coffee &amp; Tea locations (8)&quot;, &quot;Pennsylvania Peet&#39;s Coffee &amp; Tea locations (1)&quot;, &quot;Texas Peet&#39;s Coffee &amp; Tea locations (3)&quot;, &quot;Washington Peet&#39;s Coffee &amp; Tea locations (14)&quot;, &quot;MA Peet&#39;s Coffee &amp; Tea locations (7)&quot;], &#39;Tim Horton’s&#39;: [&#39;Connecticut Tim Hortons locations (10)&#39;, &#39;Delaware Tim Hortons locations (1)&#39;, &#39;Indiana Tim Hortons locations (5)&#39;, &#39;Kentucky Tim Hortons locations (3)&#39;, &#39;Massachusetts Tim Hortons locations (5)&#39;, &#39;Maine Tim Hortons locations (27)&#39;, &#39;Michigan Tim Hortons locations (191)&#39;, &#39;Minnesota Tim Hortons locations (7)&#39;, &#39;Missouri Tim Hortons locations (1)&#39;, &#39;New Jersey Tim Hortons locations (2)&#39;, &#39;New York Tim Hortons locations (100)&#39;, &#39;Ohio Tim Hortons locations (105)&#39;, &#39;Pennsylvania Tim Hortons locations (9)&#39;, &#39;Rhode Island Tim Hortons locations (26)&#39;, &#39;Virginia Tim Hortons locations (1)&#39;, &#39;West Virginia Tim Hortons locations (7)&#39;, &#39;British Columbia Tim Hortons locations (14)&#39;, &#39;Manitoba Tim Hortons locations (1)&#39;, &#39;Northwest Territories Tim Hortons locations (1)&#39;, &#39;Ontario Tim Hortons locations (31)&#39;, &#39;Prince Edward Island Tim Hortons locations (6)&#39;, &#39;Quebec Tim Hortons locations (5)&#39;, &#39;Saskatchewan Tim Hortons locations (1)&#39;], &#39;Panera Bread&#39;: [&#39;Alabama Panera Bread locations (20)&#39;, &#39;Arkansas Panera Bread locations (13)&#39;, &#39;Arizona Panera Bread locations (29)&#39;, &#39;California Panera Bread locations (216)&#39;, &#39;Colorado Panera Bread locations (32)&#39;, &#39;Connecticut Panera Bread locations (41)&#39;, &#39;District of Columbia Panera Bread locations (4)&#39;, &#39;Delaware Panera Bread locations (9)&#39;, &#39;Florida Panera Bread locations (227)&#39;, &#39;Georgia Panera Bread locations (71)&#39;, &#39;Iowa Panera Bread locations (27)&#39;, &#39;Idaho Panera Bread locations (7)&#39;, &#39;Illinois Panera Bread locations (154)&#39;, &#39;Indiana Panera Bread locations (53)&#39;, &#39;Kansas Panera Bread locations (27)&#39;, &#39;Kentucky Panera Bread locations (30)&#39;, &#39;Louisiana Panera Bread locations (1)&#39;, &#39;Massachusetts Panera Bread locations (77)&#39;, &#39;Maryland Panera Bread locations (69)&#39;, &#39;Maine Panera Bread locations (5)&#39;, &#39;Michigan Panera Bread locations (108)&#39;, &#39;Minnesota Panera Bread locations (52)&#39;, &#39;Missouri Panera Bread locations (91)&#39;, &#39;Mississippi Panera Bread locations (4)&#39;, &#39;North Carolina Panera Bread locations (52)&#39;, &#39;North Dakota Panera Bread locations (2)&#39;, &#39;Nebraska Panera Bread locations (15)&#39;, &#39;New Hampshire Panera Bread locations (12)&#39;, &#39;New Jersey Panera Bread locations (98)&#39;, &#39;New Mexico Panera Bread locations (5)&#39;, &#39;Nevada Panera Bread locations (6)&#39;, &#39;New York Panera Bread locations (138)&#39;, &#39;Ohio Panera Bread locations (170)&#39;, &#39;Oklahoma Panera Bread locations (28)&#39;, &#39;Oregon Panera Bread locations (12)&#39;, &#39;Pennsylvania Panera Bread locations (112)&#39;, &#39;Rhode Island Panera Bread locations (9)&#39;, &#39;South Carolina Panera Bread locations (17)&#39;, &#39;South Dakota Panera Bread locations (2)&#39;, &#39;Tennessee Panera Bread locations (42)&#39;, &#39;Texas Panera Bread locations (110)&#39;, &#39;Virginia Panera Bread locations (98)&#39;, &#39;Vermont Panera Bread locations (6)&#39;, &#39;Washington Panera Bread locations (16)&#39;, &#39;Wisconsin Panera Bread locations (47)&#39;, &#39;West Virginia Panera Bread locations (14)&#39;, &#39;Ontario Panera Bread locations (3)&#39;], &#39;Caribou Coffee&#39;: [&#39;Colorado Caribou Coffee locations (9)&#39;, &#39;District of Columbia Caribou Coffee locations (8)&#39;, &#39;Georgia Caribou Coffee locations (25)&#39;, &#39;Iowa Caribou Coffee locations (11)&#39;, &#39;Illinois Caribou Coffee locations (81)&#39;, &#39;Indiana Caribou Coffee locations (1)&#39;, &#39;Kansas Caribou Coffee locations (5)&#39;, &#39;Maryland Caribou Coffee locations (9)&#39;, &#39;Michigan Caribou Coffee locations (30)&#39;, &#39;Minnesota Caribou Coffee locations (312)&#39;, &#39;Missouri Caribou Coffee locations (2)&#39;, &#39;North Carolina Caribou Coffee locations (26)&#39;, &#39;North Dakota Caribou Coffee locations (7)&#39;, &#39;Nebraska Caribou Coffee locations (5)&#39;, &#39;Ohio Caribou Coffee locations (46)&#39;, &#39;Oregon Caribou Coffee locations (1)&#39;, &#39;Pennsylvania Caribou Coffee locations (6)&#39;, &#39;South Dakota Caribou Coffee locations (4)&#39;, &#39;Virginia Caribou Coffee locations (19)&#39;, &#39;Wisconsin Caribou Coffee locations (16)&#39;], &#39;Au Bon Pain&#39;: [&#39;Connecticut Au Bon Pain locations (8)&#39;, &#39;District of Columbia Au Bon Pain locations (21)&#39;, &#39;Florida Au Bon Pain locations (23)&#39;, &#39;Georgia Au Bon Pain locations (3)&#39;, &#39;Illinois Au Bon Pain locations (32)&#39;, &#39;Indiana Au Bon Pain locations (8)&#39;, &#39;Kentucky Au Bon Pain locations (1)&#39;, &#39;Massachusetts Au Bon Pain locations (67)&#39;, &#39;Maryland Au Bon Pain locations (9)&#39;, &#39;Maine Au Bon Pain locations (1)&#39;, &#39;Michigan Au Bon Pain locations (6)&#39;, &#39;Minnesota Au Bon Pain locations (5)&#39;, &#39;Missouri Au Bon Pain locations (3)&#39;, &#39;New Hampshire Au Bon Pain locations (6)&#39;, &#39;New Jersey Au Bon Pain locations (10)&#39;, &#39;Nevada Au Bon Pain locations (1)&#39;, &#39;New York Au Bon Pain locations (58)&#39;, &#39;Ohio Au Bon Pain locations (10)&#39;, &#39;Pennsylvania Au Bon Pain locations (28)&#39;, &#39;Rhode Island Au Bon Pain locations (6)&#39;, &#39;Texas Au Bon Pain locations (16)&#39;, &#39;Virginia Au Bon Pain locations (10)&#39;], &#39;The Coffee Bean &amp; Tea Leaf&#39;: [&#39;Arizona The Coffee Bean &amp; Tea Leaf locations (19)&#39;, &#39;California The Coffee Bean &amp; Tea Leaf locations (175)&#39;, &#39;Florida The Coffee Bean &amp; Tea Leaf locations (1)&#39;, &#39;Georgia The Coffee Bean &amp; Tea Leaf locations (2)&#39;, &#39;Hawaii The Coffee Bean &amp; Tea Leaf locations (22)&#39;, &#39;North Carolina The Coffee Bean &amp; Tea Leaf locations (1)&#39;, &#39;Nevada The Coffee Bean &amp; Tea Leaf locations (23)&#39;, &#39;Texas The Coffee Bean &amp; Tea Leaf locations (5)&#39;], &#39;McDonald’s&#39;: [&quot;Alaska McDonald&#39;s locations (33)&quot;, &quot;Alabama McDonald&#39;s locations (279)&quot;, &quot;Arkansas McDonald&#39;s locations (190)&quot;, &quot;Arizona McDonald&#39;s locations (326)&quot;, &quot;California McDonald&#39;s locations (1623)&quot;, &quot;Colorado McDonald&#39;s locations (237)&quot;, &quot;Connecticut McDonald&#39;s locations (173)&quot;, &quot;District of Columbia McDonald&#39;s locations (37)&quot;, &quot;Delaware McDonald&#39;s locations (46)&quot;, &quot;Florida McDonald&#39;s locations (1142)&quot;, &quot;Georgia McDonald&#39;s locations (563)&quot;, &quot;Hawaii McDonald&#39;s locations (74)&quot;, &quot;Iowa McDonald&#39;s locations (181)&quot;, &quot;Idaho McDonald&#39;s locations (71)&quot;, &quot;Illinois McDonald&#39;s locations (791)&quot;, &quot;Indiana McDonald&#39;s locations (406)&quot;, &quot;Kansas McDonald&#39;s locations (188)&quot;, &quot;Kentucky McDonald&#39;s locations (283)&quot;, &quot;Louisiana McDonald&#39;s locations (291)&quot;, &quot;Massachusetts McDonald&#39;s locations (306)&quot;, &quot;Maryland McDonald&#39;s locations (402)&quot;, &quot;Maine McDonald&#39;s locations (72)&quot;, &quot;Michigan McDonald&#39;s locations (662)&quot;, &quot;Minnesota McDonald&#39;s locations (305)&quot;, &quot;Missouri McDonald&#39;s locations (396)&quot;, &quot;Mississippi McDonald&#39;s locations (165)&quot;, &quot;Montana McDonald&#39;s locations (58)&quot;, &quot;North Carolina McDonald&#39;s locations (475)&quot;, &quot;North Dakota McDonald&#39;s locations (29)&quot;, &quot;Nebraska McDonald&#39;s locations (90)&quot;, &quot;New Hampshire McDonald&#39;s locations (72)&quot;, &quot;New Jersey McDonald&#39;s locations (335)&quot;, &quot;New Mexico McDonald&#39;s locations (106)&quot;, &quot;Nevada McDonald&#39;s locations (169)&quot;, &quot;New York McDonald&#39;s locations (811)&quot;, &quot;Ohio McDonald&#39;s locations (843)&quot;, &quot;Oklahoma McDonald&#39;s locations (220)&quot;, &quot;Oregon McDonald&#39;s locations (209)&quot;, &quot;Pennsylvania McDonald&#39;s locations (603)&quot;, &quot;Rhode Island McDonald&#39;s locations (45)&quot;, &quot;South Carolina McDonald&#39;s locations (258)&quot;, &quot;South Dakota McDonald&#39;s locations (36)&quot;, &quot;Tennessee McDonald&#39;s locations (409)&quot;, &quot;Texas McDonald&#39;s locations (1303)&quot;, &quot;Utah McDonald&#39;s locations (145)&quot;, &quot;Virginia McDonald&#39;s locations (473)&quot;, &quot;Vermont McDonald&#39;s locations (30)&quot;, &quot;Washington McDonald&#39;s locations (326)&quot;, &quot;Wisconsin McDonald&#39;s locations (353)&quot;, &quot;West Virginia McDonald&#39;s locations (107)&quot;, &quot;Wyoming McDonald&#39;s locations (34)&quot;, &quot;Gävleborg McDonald&#39;s locations (1)&quot;, &quot;Östergötland McDonald&#39;s locations (1)&quot;, &quot;Friuli-Venezia Giulia McDonald&#39;s locations (1)&quot;, &quot; McDonald&#39;s locations (12)&quot;, &quot;D McDonald&#39;s locations (1)&quot;, &quot;England McDonald&#39;s locations (8)&quot;, &quot;Greater London McDonald&#39;s locations (3)&quot;, &quot;Northern Ireland McDonald&#39;s locations (5)&quot;, &quot;Scotland McDonald&#39;s locations (8)&quot;, &quot;Bretagne McDonald&#39;s locations (2)&quot;, &quot;Centre McDonald&#39;s locations (1)&quot;, &quot;Franche-Comte McDonald&#39;s locations (1)&quot;, &quot;Ile-de-France McDonald&#39;s locations (2)&quot;, &quot;Lorraine McDonald&#39;s locations (1)&quot;, &quot;Lower-Normandy McDonald&#39;s locations (1)&quot;, &quot;Midi-Pyrénées McDonald&#39;s locations (2)&quot;, &quot;Occitanie McDonald&#39;s locations (2)&quot;, &quot;Rhône-Alpes McDonald&#39;s locations (1)&quot;, &quot;Upper-Normandy McDonald&#39;s locations (1)&quot;, &quot;CN McDonald&#39;s locations (1)&quot;, &quot;Madrid McDonald&#39;s locations (1)&quot;, &quot;Hovedstaden McDonald&#39;s locations (1)&quot;, &quot;Bavaria McDonald&#39;s locations (1)&quot;, &quot;Berlin McDonald&#39;s locations (1)&quot;, &quot;NDS McDonald&#39;s locations (3)&quot;, &quot;NRW McDonald&#39;s locations (5)&quot;, &quot;Saar McDonald&#39;s locations (1)&quot;, &quot;Saxony-Anhalt McDonald&#39;s locations (1)&quot;, &quot;British Columbia McDonald&#39;s locations (10)&quot;, &quot;Manitoba McDonald&#39;s locations (1)&quot;, &quot;Newfoundland and Labrador McDonald&#39;s locations (1)&quot;, &quot;Nova Scotia McDonald&#39;s locations (1)&quot;, &quot;Ontario McDonald&#39;s locations (88)&quot;, &quot;Prince Edward Island McDonald&#39;s locations (2)&quot;, &quot;Quebec McDonald&#39;s locations (26)&quot;, &quot;Saskatchewan McDonald&#39;s locations (4)&quot;, &quot;New South Wales McDonald&#39;s locations (4)&quot;, &quot;Victoria McDonald&#39;s locations (1)&quot;, &quot;Steiermark McDonald&#39;s locations (5)&quot;, &quot;Tirol McDonald&#39;s locations (1)&quot;, &quot;Cordoba McDonald&#39;s locations (2)&quot;]}</code></pre>
 </div>
 </div>
-<div class="cell" data-outputid="1c06c3a0-400c-4ef2-c607-d2d576bdbc05" data-execution_count="220">
+<div class="cell" data-outputid="7f3116bf-9aa9-47e8-bc64-c9ad602154cb" data-execution_count="36">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Writing a function to get state abbreviations</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> stateabb(state_name):</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    state <span class="op">=</span> us.states.lookup(state_name)</span>
@@ -3170,14 +3170,14 @@ Requirement already satisfied: jellyfish==0.11.2 in /usr/local/lib/python3.10/di
 [269 rows x 4 columns]</code></pre>
 </div>
 </div>
-<div class="cell" data-execution_count="6">
+<div class="cell">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Sanity check</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>df.to_csv(<span class="st">&#39;/content/drive/My Drive/df.csv&#39;</span>, index<span class="op">=</span><span class="va">False</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="supplemental-data" class="level1">
 <h1><strong>Supplemental Data</strong></h1>
-<div class="cell" data-outputid="4961fa70-e291-4fa7-e98a-6f60ce1e2459" data-execution_count="222">
+<div class="cell" data-outputid="bdcfbfff-7352-4fa7-a311-7aeb0cbbd620" data-execution_count="37">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Extracting state names and populations from wiki</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>response <span class="op">=</span> requests.get(<span class="st">&quot;https://simple.wikipedia.org/wiki/List_of_U.S._states_by_population&quot;</span>)</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>soup <span class="op">=</span> BeautifulSoup(response.content, <span class="st">&#39;html.parser&#39;</span>)</span>
@@ -3236,7 +3236,7 @@ Requirement already satisfied: jellyfish==0.11.2 in /usr/local/lib/python3.10/di
 </div>
 </div>
 <p>Create a region variable in your dataset according to the scheme on this wikipedia page: Northeast, Midwest, South, West. You do not need to scrape this information.</p>
-<div class="cell" data-outputid="2a91ba6f-cc7c-40ad-82e0-c45db69aef93" data-execution_count="223">
+<div class="cell" data-outputid="8bd1aac4-5987-4e2c-dfb2-1d4f181ec98f" data-execution_count="38">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Creating a dictionary to map regions to their respective states</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>region_to_states <span class="op">=</span> {</span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;Northeast&quot;</span>: [<span class="st">&quot;Connecticut&quot;</span>, <span class="st">&quot;Maine&quot;</span>, <span class="st">&quot;Massachusetts&quot;</span>, <span class="st">&quot;New Hampshire&quot;</span>, <span class="st">&quot;Rhode Island&quot;</span>, <span class="st">&quot;Vermont&quot;</span>, <span class="st">&quot;New Jersey&quot;</span>, <span class="st">&quot;New York&quot;</span>, <span class="st">&quot;Pennsylvania&quot;</span>],</span>
@@ -3282,7 +3282,7 @@ Requirement already satisfied: jellyfish==0.11.2 in /usr/local/lib/python3.10/di
 [269 rows x 6 columns]</code></pre>
 </div>
 </div>
-<div class="cell" data-outputid="f3c6a056-fc43-426b-b7c1-e89a05243010" data-execution_count="224">
+<div class="cell" data-outputid="4c3e4f46-05e3-42f4-c033-5daabec2fedc" data-execution_count="39">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Checking for missing values in the &quot;Region&quot; column</span></span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>missing_values <span class="op">=</span> df[<span class="st">&quot;Region&quot;</span>].isnull().<span class="bu">sum</span>()</span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -3301,7 +3301,7 @@ Requirement already satisfied: jellyfish==0.11.2 in /usr/local/lib/python3.10/di
 105    NaN  </code></pre>
 </div>
 </div>
-<div class="cell" data-outputid="7fee8b3c-cb39-4576-f520-c1fcb6267880" data-execution_count="225">
+<div class="cell" data-outputid="54d5a8ca-47dd-4d46-9c45-75f58dee495d" data-execution_count="40">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ***Discovered that row 105 with Massachusetts Peet&#39;s Coffee &amp; Tea had MA as the state name instead of Massachusetts</span></span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Correcting the &#39;State&#39; column for the entry with &quot;Peet’s Coffee &amp; Tea&quot;</span></span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>df.loc[(df[<span class="st">&#39;Coffee Chain&#39;</span>] <span class="op">==</span> <span class="st">&quot;Peet’s Coffee &amp; Tea&quot;</span>) <span class="op">&amp;</span> (df[<span class="st">&#39;State&#39;</span>] <span class="op">==</span> <span class="st">&quot;MA&quot;</span>), <span class="st">&#39;State&#39;</span>] <span class="op">=</span> <span class="st">&quot;Massachusetts&quot;</span></span>
@@ -3331,41 +3331,43 @@ Requirement already satisfied: jellyfish==0.11.2 in /usr/local/lib/python3.10/di
 </div>
 </div>
 <p>Find the revenue, stock price, or your financial metric of choice for each of the companies listed above (if you can find a website to scrape these from that’s great!…but it’s okay if you manually enter these into R). Merge these values into your big dataset. Note: these values may be repeated for each state.</p>
-<div class="cell" data-outputid="6eb3f9ec-e215-4534-ff23-d975e421f3ef" data-execution_count="226">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Creating a dictionary with yearly revenue in billions for the 9 chains</span></span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>revenue_data <span class="op">=</span> {</span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;Starbucks&quot;</span>: <span class="fl">28.11</span>,</span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;Dunkin’ Donuts&quot;</span>: <span class="fl">1.37</span>,</span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;Peet’s Coffee &amp; Tea&quot;</span>: <span class="fl">0.72</span>,</span>
-<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;Panera Bread&quot;</span>: <span class="fl">2.93</span>,</span>
-<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;Caribou Coffee&quot;</span>: <span class="fl">0.35</span>,</span>
-<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;Au Bon Pain&quot;</span>: <span class="fl">0.282</span>,  <span class="co"># YUM Brands, parent company</span></span>
-<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;The Coffee Bean &amp; Tea Leaf&quot;</span>: <span class="fl">0.31</span>,</span>
-<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;McDonald’s&quot;</span>: <span class="fl">100.21</span>,</span>
-<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;Tim Horton’s&quot;</span>: <span class="fl">6.71</span></span>
-<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Converting the dictionary to a dataframe</span></span>
-<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a>revenue_df <span class="op">=</span> pd.DataFrame(<span class="bu">list</span>(revenue_data.items()), columns<span class="op">=</span>[<span class="st">&#39;Coffee Chain&#39;</span>, <span class="st">&#39;Tot. Rev (bill)&#39;</span>])</span>
-<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Merging the revenue data with the main dataframe</span></span>
-<span id="cb17-18"><a href="#cb17-18" aria-hidden="true" tabindex="-1"></a>merged_df <span class="op">=</span> pd.merge(df, revenue_df, on<span class="op">=</span><span class="st">&#39;Coffee Chain&#39;</span>, how<span class="op">=</span><span class="st">&#39;left&#39;</span>)</span>
-<span id="cb17-19"><a href="#cb17-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-20"><a href="#cb17-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculating the total locations for each chain</span></span>
-<span id="cb17-21"><a href="#cb17-21" aria-hidden="true" tabindex="-1"></a>total_locations <span class="op">=</span> merged_df.groupby(<span class="st">&#39;Coffee Chain&#39;</span>)[<span class="st">&#39;Location Count&#39;</span>].<span class="bu">sum</span>().reset_index()</span>
-<span id="cb17-22"><a href="#cb17-22" aria-hidden="true" tabindex="-1"></a>total_locations.rename(columns<span class="op">=</span>{<span class="st">&#39;Location Count&#39;</span>: <span class="st">&#39;Total Chain Locations&#39;</span>}, inplace<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb17-23"><a href="#cb17-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-24"><a href="#cb17-24" aria-hidden="true" tabindex="-1"></a><span class="co"># Merging total locations with the df dataframe</span></span>
-<span id="cb17-25"><a href="#cb17-25" aria-hidden="true" tabindex="-1"></a>merged_df <span class="op">=</span> pd.merge(merged_df, total_locations, on<span class="op">=</span><span class="st">&#39;Coffee Chain&#39;</span>, how<span class="op">=</span><span class="st">&#39;left&#39;</span>)</span>
-<span id="cb17-26"><a href="#cb17-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-27"><a href="#cb17-27" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculating revenue generated by state for each chain</span></span>
-<span id="cb17-28"><a href="#cb17-28" aria-hidden="true" tabindex="-1"></a>merged_df[<span class="st">&#39;State Rev (bill)&#39;</span>] <span class="op">=</span> (merged_df[<span class="st">&#39;Tot. Rev (bill)&#39;</span>] <span class="op">/</span> merged_df[<span class="st">&#39;Total Chain Locations&#39;</span>]) <span class="op">*</span> merged_df[<span class="st">&#39;Location Count&#39;</span>]</span>
-<span id="cb17-29"><a href="#cb17-29" aria-hidden="true" tabindex="-1"></a>merged_df[<span class="st">&#39;State Rev (bill)&#39;</span>] <span class="op">=</span> merged_df[<span class="st">&#39;State Rev (bill)&#39;</span>].<span class="bu">round</span>(<span class="dv">2</span>)</span>
-<span id="cb17-30"><a href="#cb17-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-31"><a href="#cb17-31" aria-hidden="true" tabindex="-1"></a><span class="co"># Dropping the &#39;Total Chain Locations&#39; used for calculations</span></span>
-<span id="cb17-32"><a href="#cb17-32" aria-hidden="true" tabindex="-1"></a>merged_df.drop(columns<span class="op">=</span>[<span class="st">&#39;Total Chain Locations&#39;</span>], inplace<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb17-33"><a href="#cb17-33" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-34"><a href="#cb17-34" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(merged_df[[<span class="st">&#39;State&#39;</span>, <span class="st">&#39;Coffee Chain&#39;</span>, <span class="st">&#39;Location Count&#39;</span>, <span class="st">&#39;State Rev (bill)&#39;</span>, <span class="st">&#39;Tot. Rev (bill)&#39;</span>]])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-outputid="7cf03431-732a-4657-b20f-b86642250d4e" data-execution_count="41">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Creating a dictionary with yearly revenue in billions for the 9 chains</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>revenue_data <span class="op">=</span> {</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;Starbucks&quot;</span>: <span class="fl">28.11</span>,</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;Dunkin’ Donuts&quot;</span>: <span class="fl">1.37</span>,</span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;Peet’s Coffee &amp; Tea&quot;</span>: <span class="fl">0.72</span>,</span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;Panera Bread&quot;</span>: <span class="fl">2.93</span>,</span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;Caribou Coffee&quot;</span>: <span class="fl">0.35</span>,</span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;Au Bon Pain&quot;</span>: <span class="fl">0.282</span>,  <span class="co"># YUM Brands, parent company</span></span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;The Coffee Bean &amp; Tea Leaf&quot;</span>: <span class="fl">0.31</span>,</span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;McDonald’s&quot;</span>: <span class="fl">100.21</span>,</span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;Tim Horton’s&quot;</span>: <span class="fl">6.71</span></span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Converting the dictionary to a dataframe</span></span>
+<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a>revenue_df <span class="op">=</span> pd.DataFrame(<span class="bu">list</span>(revenue_data.items()), columns<span class="op">=</span>[<span class="st">&#39;Coffee Chain&#39;</span>, <span class="st">&#39;Tot. Rev (bill)&#39;</span>])</span>
+<span id="cb17-18"><a href="#cb17-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-19"><a href="#cb17-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Merging the revenue data with the main dataframe</span></span>
+<span id="cb17-20"><a href="#cb17-20" aria-hidden="true" tabindex="-1"></a>merged_df <span class="op">=</span> pd.merge(df, revenue_df, on<span class="op">=</span><span class="st">&#39;Coffee Chain&#39;</span>, how<span class="op">=</span><span class="st">&#39;left&#39;</span>)</span>
+<span id="cb17-21"><a href="#cb17-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-22"><a href="#cb17-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculating the total locations for each chain</span></span>
+<span id="cb17-23"><a href="#cb17-23" aria-hidden="true" tabindex="-1"></a>total_locations <span class="op">=</span> merged_df.groupby(<span class="st">&#39;Coffee Chain&#39;</span>)[<span class="st">&#39;Location Count&#39;</span>].<span class="bu">sum</span>().reset_index()</span>
+<span id="cb17-24"><a href="#cb17-24" aria-hidden="true" tabindex="-1"></a>total_locations <span class="op">=</span> total_locations.rename(columns<span class="op">=</span>{<span class="st">&#39;Location Count&#39;</span>: <span class="st">&#39;Total Chain Locations&#39;</span>})</span>
+<span id="cb17-25"><a href="#cb17-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-26"><a href="#cb17-26" aria-hidden="true" tabindex="-1"></a><span class="co"># Merging total locations with the df dataframe</span></span>
+<span id="cb17-27"><a href="#cb17-27" aria-hidden="true" tabindex="-1"></a>merged_df <span class="op">=</span> pd.merge(merged_df, total_locations, on<span class="op">=</span><span class="st">&#39;Coffee Chain&#39;</span>, how<span class="op">=</span><span class="st">&#39;left&#39;</span>)</span>
+<span id="cb17-28"><a href="#cb17-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-29"><a href="#cb17-29" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculating revenue generated by state for each chain</span></span>
+<span id="cb17-30"><a href="#cb17-30" aria-hidden="true" tabindex="-1"></a>merged_df[<span class="st">&#39;State Rev (bill)&#39;</span>] <span class="op">=</span> (merged_df[<span class="st">&#39;Tot. Rev (bill)&#39;</span>] <span class="op">/</span> merged_df[<span class="st">&#39;Total Chain Locations&#39;</span>]) <span class="op">*</span> merged_df[<span class="st">&#39;Location Count&#39;</span>]</span>
+<span id="cb17-31"><a href="#cb17-31" aria-hidden="true" tabindex="-1"></a>merged_df[<span class="st">&#39;State Rev (bill)&#39;</span>] <span class="op">=</span> merged_df[<span class="st">&#39;State Rev (bill)&#39;</span>].<span class="bu">round</span>(<span class="dv">2</span>)</span>
+<span id="cb17-32"><a href="#cb17-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-33"><a href="#cb17-33" aria-hidden="true" tabindex="-1"></a><span class="co"># Dropping the &#39;Total Chain Locations&#39; used for calculations</span></span>
+<span id="cb17-34"><a href="#cb17-34" aria-hidden="true" tabindex="-1"></a>merged_df <span class="op">=</span> merged_df.drop(columns<span class="op">=</span>[<span class="st">&#39;Total Chain Locations&#39;</span>])</span>
+<span id="cb17-35"><a href="#cb17-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-36"><a href="#cb17-36" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(merged_df[[<span class="st">&#39;State&#39;</span>, <span class="st">&#39;Coffee Chain&#39;</span>, <span class="st">&#39;Location Count&#39;</span>, <span class="st">&#39;State Rev (bill)&#39;</span>, <span class="st">&#39;Tot. Rev (bill)&#39;</span>]])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>             State Coffee Chain  Location Count  State Rev (bill)  \
 0           Alaska    Starbucks              24              0.07   
@@ -3396,12 +3398,12 @@ Requirement already satisfied: jellyfish==0.11.2 in /usr/local/lib/python3.10/di
 [269 rows x 5 columns]</code></pre>
 </div>
 </div>
-<div class="cell" data-outputid="5eed7276-7195-4e4e-bc3c-c2253224c716" data-execution_count="227">
+<div class="cell" data-outputid="0ca8568f-43e3-42e2-e405-f9eafb2add46" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Sanity check</span></span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>merged_df.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="227">
+<div class="cell-output cell-output-display" data-execution_count="12">
 
-  <div id="df-9e15ca71-e3d1-453e-aeda-3552a400aae1" class="colab-df-container">
+  <div id="df-d69f5957-70e5-4f9b-8f28-285b51161b3d" class="colab-df-container">
     <div>
 
 
@@ -3483,7 +3485,7 @@ Requirement already satisfied: jellyfish==0.11.2 in /usr/local/lib/python3.10/di
     <div class="colab-df-buttons">
 
   <div class="colab-df-container">
-    <button class="colab-df-convert" onclick="convertToInteractive(&#39;df-9e15ca71-e3d1-453e-aeda-3552a400aae1&#39;)" title="Convert this dataframe to an interactive table." style="display:none;">
+    <button class="colab-df-convert" onclick="convertToInteractive(&#39;df-d69f5957-70e5-4f9b-8f28-285b51161b3d&#39;)" title="Convert this dataframe to an interactive table." style="display:none;">
 
   <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewbox="0 -960 960 960">
     <path d="M120-120v-720h720v720H120Zm60-500h600v-160H180v160Zm220 220h160v-160H400v160Zm0 220h160v-160H400v160ZM180-400h160v-160H180v160Zm440 0h160v-160H620v160ZM180-180h160v-160H180v160Zm440 0h160v-160H620v160Z"></path>
@@ -3528,12 +3530,12 @@ fill: #FFFFFF;
 
     <script>
       const buttonEl =
-        document.querySelector('#df-9e15ca71-e3d1-453e-aeda-3552a400aae1 button.colab-df-convert');
+        document.querySelector('#df-d69f5957-70e5-4f9b-8f28-285b51161b3d button.colab-df-convert');
       buttonEl.style.display =
         google.colab.kernel.accessAllowed ? 'block' : 'none';
 
       async function convertToInteractive(key) {
-        const element = document.querySelector('#df-9e15ca71-e3d1-453e-aeda-3552a400aae1');
+        const element = document.querySelector('#df-d69f5957-70e5-4f9b-8f28-285b51161b3d');
         const dataTable =
           await google.colab.kernel.invokeFunction('convertToInteractive',
                                                     [key], {});
@@ -3553,8 +3555,8 @@ fill: #FFFFFF;
   </div>
 
 
-<div id="df-89cf8f03-ee3a-40f0-8486-6969db083cbf">
-  <button class="colab-df-quickchart" onclick="quickchart(&#39;df-89cf8f03-ee3a-40f0-8486-6969db083cbf&#39;)" title="Suggest charts." style="display:none;">
+<div id="df-247de48f-184b-4a71-b260-b94b13d15d41">
+  <button class="colab-df-quickchart" onclick="quickchart(&#39;df-247de48f-184b-4a71-b260-b94b13d15d41&#39;)" title="Suggest charts." style="display:none;">
 
 <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewbox="0 0 24 24" width="24px">
     <g>
@@ -3664,7 +3666,7 @@ border-bottom-color: var(--fill-color);
     }
     (() => {
       let quickchartButtonEl =
-        document.querySelector('#df-89cf8f03-ee3a-40f0-8486-6969db083cbf button');
+        document.querySelector('#df-247de48f-184b-4a71-b260-b94b13d15d41 button');
       quickchartButtonEl.style.display =
         google.colab.kernel.accessAllowed ? 'block' : 'none';
     })();
@@ -3681,7 +3683,7 @@ border-bottom-color: var(--fill-color);
 <ul>
 <li>Are some of these chains more prevalent in certain states than others? Possibly despite having less stores overall? Same questions for regions instead of states.</li>
 </ul>
-<div class="cell" data-outputid="ffecd35b-e647-4998-fcb3-3dd7c5c18eab" data-execution_count="228">
+<div class="cell" data-outputid="a2467ad3-127a-4c4b-f6f4-f5dc34e29c3b" data-execution_count="42">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Breaking down the prevalance by state</span></span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>chains_state <span class="op">=</span> merged_df.groupby([<span class="st">&#39;Coffee Chain&#39;</span>, <span class="st">&#39;State&#39;</span>])[<span class="st">&#39;Location Count&#39;</span>].<span class="bu">sum</span>().reset_index()</span>
 <span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>max_chains_state <span class="op">=</span> chains_state.groupby(<span class="st">&#39;Coffee Chain&#39;</span>).<span class="bu">apply</span>(<span class="kw">lambda</span> x: x.nlargest(<span class="dv">1</span>, <span class="st">&#39;Location Count&#39;</span>)).reset_index(drop<span class="op">=</span><span class="va">True</span>)</span>
@@ -3753,7 +3755,7 @@ Name: Location Count, dtype: int64</code></pre>
 <ul>
 <li>How does your chosen financial metric change by state and region for each chain? For example, having 5 stores in California is very different from having 5 stores in Wyoming.</li>
 </ul>
-<div class="cell" data-outputid="f9af6b5b-73e0-4ed8-f6a5-69b41c777b11" data-execution_count="229">
+<div class="cell" data-outputid="e46528d7-5bb4-4f92-ecdc-182bed1165e5" data-execution_count="43">
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Creating an empty dictionary to store the results</span></span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>chain_state_rev_loc <span class="op">=</span> {}</span>
 <span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -4066,7 +4068,7 @@ Financial Metric by State for McDonald’s:
 </div>
 </div>
 <p>There is a direct positive correlation with location count within a state and chain revenue. The more locations correlates strongly to more revenue, so yes, 5 locations in California is very different from 5 locations in Wyoming.</p>
-<div class="cell" data-outputid="1f380adc-fa00-4834-f036-f5687df466ca" data-execution_count="230">
+<div class="cell" data-outputid="6c600d22-e3a1-44ba-9b4d-b59329095587" data-execution_count="44">
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Grouping by &#39;Coffee Chain&#39; and &#39;Region&#39;, and summing the states in each region to get total revenue and location count for each chain in each region</span></span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>revenue_region <span class="op">=</span> merged_df.groupby([<span class="st">&#39;Coffee Chain&#39;</span>, <span class="st">&#39;Region&#39;</span>]).agg({<span class="st">&#39;State Rev (bill)&#39;</span>: <span class="st">&#39;sum&#39;</span>, <span class="st">&#39;Location Count&#39;</span>: <span class="st">&#39;sum&#39;</span>}).reset_index()</span>
 <span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -4118,7 +4120,7 @@ Revenue by Region:
 <ul>
 <li>Does the distribution of each chain’s stores match population distribution, by both state/region?</li>
 </ul>
-<div class="cell" data-execution_count="231">
+<div class="cell" data-execution_count="45">
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculating store distribution for each state and region</span></span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>merged_df[<span class="st">&#39;Store Density&#39;</span>] <span class="op">=</span> merged_df[<span class="st">&#39;Location Count&#39;</span>] <span class="op">/</span> merged_df[<span class="st">&#39;Population&#39;</span>]</span>
 <span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -4138,12 +4140,12 @@ Revenue by Region:
 <span id="cb26-17"><a href="#cb26-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Combining the state and region dataframes</span></span>
 <span id="cb26-18"><a href="#cb26-18" aria-hidden="true" tabindex="-1"></a>combined_df <span class="op">=</span> pd.concat([state_df, region_df], ignore_index<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-outputid="0c3e558d-32f3-4ea3-c5d9-0137c74fe1af" data-execution_count="232">
+<div class="cell" data-outputid="ea180d1d-eec7-478c-fece-da5c72fc3d85" data-execution_count="46">
 <div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Sanity check</span></span>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>combined_df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="232">
+<div class="cell-output cell-output-display" data-execution_count="46">
 
-  <div id="df-056a6782-1dfd-4ab8-824e-b8729d8b8231" class="colab-df-container">
+  <div id="df-4d7799e8-447a-4cdb-9cc4-852c95691e17" class="colab-df-container">
     <div>
 
 
@@ -4280,7 +4282,7 @@ Revenue by Region:
     <div class="colab-df-buttons">
 
   <div class="colab-df-container">
-    <button class="colab-df-convert" onclick="convertToInteractive(&#39;df-056a6782-1dfd-4ab8-824e-b8729d8b8231&#39;)" title="Convert this dataframe to an interactive table." style="display:none;">
+    <button class="colab-df-convert" onclick="convertToInteractive(&#39;df-4d7799e8-447a-4cdb-9cc4-852c95691e17&#39;)" title="Convert this dataframe to an interactive table." style="display:none;">
 
   <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewbox="0 -960 960 960">
     <path d="M120-120v-720h720v720H120Zm60-500h600v-160H180v160Zm220 220h160v-160H400v160Zm0 220h160v-160H400v160ZM180-400h160v-160H180v160Zm440 0h160v-160H620v160ZM180-180h160v-160H180v160Zm440 0h160v-160H620v160Z"></path>
@@ -4325,12 +4327,12 @@ fill: #FFFFFF;
 
     <script>
       const buttonEl =
-        document.querySelector('#df-056a6782-1dfd-4ab8-824e-b8729d8b8231 button.colab-df-convert');
+        document.querySelector('#df-4d7799e8-447a-4cdb-9cc4-852c95691e17 button.colab-df-convert');
       buttonEl.style.display =
         google.colab.kernel.accessAllowed ? 'block' : 'none';
 
       async function convertToInteractive(key) {
-        const element = document.querySelector('#df-056a6782-1dfd-4ab8-824e-b8729d8b8231');
+        const element = document.querySelector('#df-4d7799e8-447a-4cdb-9cc4-852c95691e17');
         const dataTable =
           await google.colab.kernel.invokeFunction('convertToInteractive',
                                                     [key], {});
@@ -4350,8 +4352,8 @@ fill: #FFFFFF;
   </div>
 
 
-<div id="df-eecb1287-eb3a-42e8-8965-e7ee9b767a52">
-  <button class="colab-df-quickchart" onclick="quickchart(&#39;df-eecb1287-eb3a-42e8-8965-e7ee9b767a52&#39;)" title="Suggest charts." style="display:none;">
+<div id="df-79555aa9-38d1-46f5-a99b-fce67c6af8c0">
+  <button class="colab-df-quickchart" onclick="quickchart(&#39;df-79555aa9-38d1-46f5-a99b-fce67c6af8c0&#39;)" title="Suggest charts." style="display:none;">
 
 <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewbox="0 0 24 24" width="24px">
     <g>
@@ -4461,7 +4463,7 @@ border-bottom-color: var(--fill-color);
     }
     (() => {
       let quickchartButtonEl =
-        document.querySelector('#df-eecb1287-eb3a-42e8-8965-e7ee9b767a52 button');
+        document.querySelector('#df-79555aa9-38d1-46f5-a99b-fce67c6af8c0 button');
       quickchartButtonEl.style.display =
         google.colab.kernel.accessAllowed ? 'block' : 'none';
     })();
@@ -4471,7 +4473,7 @@ border-bottom-color: var(--fill-color);
   </div>
 </div>
 </div>
-<div class="cell" data-outputid="69f54e55-36bc-4e5b-c301-c536bb54e931" data-execution_count="233">
+<div class="cell" data-outputid="e752d895-dbe4-4448-f779-9cbe6e9e89d6" data-execution_count="47">
 <div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> plotnine <span class="im">import</span> ggplot, aes, geom_point, geom_smooth, facet_wrap, labs, theme, element_text, scale_x_log10</span>
 <span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Plotting population distribution against chain distribution, by state and region</span></span>
@@ -4501,7 +4503,7 @@ border-bottom-color: var(--fill-color);
 <ul>
 <li>Do the financial data match what you’d expect based on the number and locations of the stores? Why or why not?</li>
 </ul>
-<div class="cell" data-outputid="3fa0fd39-c0d2-42fb-ce22-ada4d9eb811b" data-execution_count="234">
+<div class="cell" data-outputid="cc40f7b2-47b3-4c0e-c431-135dd74249f5" data-execution_count="48">
 <div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Finding the correlation between each chain&#39;s state revenue and number of locations</span></span>
@@ -4565,7 +4567,7 @@ Average revenue per store for each chain in each region:
 32                Tim Horton’s      South  0.012500</code></pre>
 </div>
 </div>
-<div class="cell" data-outputid="51816a6e-131a-4540-e596-1509feffb26f" data-execution_count="235">
+<div class="cell" data-outputid="80c8c966-3339-49e9-9c0f-1409c6f439b4" data-execution_count="49">
 <div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> plotnine <span class="im">import</span> ggplot, aes, geom_point, geom_smooth, facet_wrap, labs, theme, element_text</span>
 <span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>plot <span class="op">=</span> (</span>
@@ -4598,7 +4600,7 @@ Average revenue per store for each chain in each region:
 <li><p>Extract the name of the company from either the URL specified or the webpage</p></li>
 <li><p>Return a clean, organized dataset that has three columns: state abbreviation, location count, company name. Company name will likely be repeated on every row.</p></li>
 </ul>
-<div class="cell" data-outputid="792ccca5-9b64-4cdf-f909-1e73135bf7e8" data-execution_count="236">
+<div class="cell" data-outputid="a30c3019-045a-4d70-f792-7b495a6cffc6" data-execution_count="50">
 <div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Making sure the &#39;us&#39; library is installed</span></span>
 <span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>pip install us</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -4606,7 +4608,7 @@ Average revenue per store for each chain in each region:
 Requirement already satisfied: jellyfish==0.11.2 in /usr/local/lib/python3.10/dist-packages (from us) (0.11.2)</code></pre>
 </div>
 </div>
-<div class="cell" data-execution_count="237">
+<div class="cell" data-execution_count="51">
 <div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> requests</span>
 <span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> bs4 <span class="im">import</span> BeautifulSoup</span>
 <span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
@@ -4666,7 +4668,7 @@ Requirement already satisfied: jellyfish==0.11.2 in /usr/local/lib/python3.10/di
 <span id="cb36-57"><a href="#cb36-57" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb36-58"><a href="#cb36-58" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-outputid="e2ad83a6-098d-4a7c-8e49-da9e1cdd0b59" data-execution_count="238">
+<div class="cell" data-outputid="6e16595a-9391-46a1-c983-6a1726edc9b3" data-execution_count="52">
 <div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Change the url to desired coffee chain</span></span>
 <span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>url <span class="op">=</span> <span class="st">&quot;https://www.menuism.com/restaurant-locations/starbucks-coffee-39564&quot;</span></span>
 <span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> scrape_menuism(url)</span>
@@ -4726,7 +4728,7 @@ Requirement already satisfied: jellyfish==0.11.2 in /usr/local/lib/python3.10/di
 50                 WY              16  Starbucks Coffee</code></pre>
 </div>
 </div>
-<div class="cell" data-outputid="95d70e8a-6ee2-4b77-cf7b-0fcb2da8ffd4" data-execution_count="239">
+<div class="cell" data-outputid="79c25d82-5ba3-429d-ac16-693616da7eb8" data-execution_count="53">
 <div class="sourceCode cell-code" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Change the url to desired coffee chain</span></span>
 <span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>url <span class="op">=</span> <span class="st">&quot;https://www.menuism.com/restaurant-locations/dunkin-donuts-181624&quot;</span></span>
 <span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> scrape_menuism(url)</span>
@@ -4780,7 +4782,7 @@ Requirement already satisfied: jellyfish==0.11.2 in /usr/local/lib/python3.10/di
 44                 WV               5  Dunkin&#39; Donuts</code></pre>
 </div>
 </div>
-<div class="cell" data-outputid="76ea19ea-804f-40c6-d6f4-e380251971d4" data-execution_count="240">
+<div class="cell" data-outputid="7e95ea13-3dae-4ab5-85f3-17e04e359889" data-execution_count="54">
 <div class="sourceCode cell-code" id="cb41"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Change the url to desired coffee chain</span></span>
 <span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>url <span class="op">=</span> <span class="st">&quot;https://www.menuism.com/restaurant-locations/peets-coffee-tea-84051&quot;</span></span>
 <span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> scrape_menuism(url)</span>
@@ -4799,7 +4801,7 @@ Requirement already satisfied: jellyfish==0.11.2 in /usr/local/lib/python3.10/di
 9                 MA               7  Peet&#39;s Coffee &amp; Tea</code></pre>
 </div>
 </div>
-<div class="cell" data-outputid="80a3a762-35df-44ea-aa42-941a195839f9" data-execution_count="241">
+<div class="cell" data-outputid="29ac6630-533d-4349-9ccb-54affaf21e2b" data-execution_count="55">
 <div class="sourceCode cell-code" id="cb43"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Change the url to desired coffee chain</span></span>
 <span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>url <span class="op">=</span> <span class="st">&quot;https://www.menuism.com/restaurant-locations/tim-hortons-190025&quot;</span></span>
 <span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> scrape_menuism(url)</span>
@@ -4824,7 +4826,7 @@ Requirement already satisfied: jellyfish==0.11.2 in /usr/local/lib/python3.10/di
 15                 WV               7  Tim Hortons</code></pre>
 </div>
 </div>
-<div class="cell" data-outputid="a842315b-30ee-4cb9-8937-8ae4b692fa3b" data-execution_count="242">
+<div class="cell" data-outputid="d8f7ec8b-2c06-4426-c32c-0e24a5304035" data-execution_count="26">
 <div class="sourceCode cell-code" id="cb45"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Change the url to desired coffee chain</span></span>
 <span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>url <span class="op">=</span> <span class="st">&quot;https://www.menuism.com/restaurant-locations/panera-bread-4258&quot;</span></span>
 <span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> scrape_menuism(url)</span>
@@ -4879,7 +4881,7 @@ Requirement already satisfied: jellyfish==0.11.2 in /usr/local/lib/python3.10/di
 45                 WV              14  Panera Bread</code></pre>
 </div>
 </div>
-<div class="cell" data-outputid="976a0a1b-0d58-4fa5-ad45-c2ffc9a3f9c2" data-execution_count="243">
+<div class="cell" data-outputid="8e91464d-4a72-4710-ccdd-7e5bcd11b81a" data-execution_count="56">
 <div class="sourceCode cell-code" id="cb47"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Change the url to desired coffee chain</span></span>
 <span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>url <span class="op">=</span> <span class="st">&quot;https://www.menuism.com/restaurant-locations/caribou-coffee-164861&quot;</span></span>
 <span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> scrape_menuism(url)</span>
@@ -4908,7 +4910,7 @@ Requirement already satisfied: jellyfish==0.11.2 in /usr/local/lib/python3.10/di
 19                 WI              16  Caribou Coffee</code></pre>
 </div>
 </div>
-<div class="cell" data-outputid="d22472f7-5c27-4d30-92c0-bee61ff0d74d" data-execution_count="244">
+<div class="cell" data-outputid="3e5ea3f5-440f-427d-8dae-59529db14afa" data-execution_count="57">
 <div class="sourceCode cell-code" id="cb49"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Change the url to desired coffee chain</span></span>
 <span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>url <span class="op">=</span> <span class="st">&quot;https://www.menuism.com/restaurant-locations/au-bon-pain-69342&quot;</span></span>
 <span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> scrape_menuism(url)</span>
@@ -4939,7 +4941,7 @@ Requirement already satisfied: jellyfish==0.11.2 in /usr/local/lib/python3.10/di
 21                 VA              10  Au Bon Pain</code></pre>
 </div>
 </div>
-<div class="cell" data-outputid="86a409e3-b719-4273-a57b-0c8df07ed4ed" data-execution_count="245">
+<div class="cell" data-outputid="2c02a552-be02-404a-e2e7-8ea29b02fa1d" data-execution_count="58">
 <div class="sourceCode cell-code" id="cb51"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Change the url to desired coffee chain</span></span>
 <span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>url <span class="op">=</span> <span class="st">&quot;https://www.menuism.com/restaurant-locations/the-coffee-bean-tea-leaf-165988&quot;</span></span>
 <span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> scrape_menuism(url)</span>
@@ -4956,7 +4958,7 @@ Requirement already satisfied: jellyfish==0.11.2 in /usr/local/lib/python3.10/di
 7                 TX               5  The Coffee Bean &amp; Tea Leaf</code></pre>
 </div>
 </div>
-<div class="cell" data-outputid="449b8fc7-4a17-4547-bdd9-0f997e75a9c1" data-execution_count="246">
+<div class="cell" data-outputid="04e7ffd0-e2df-493f-eac6-36d2301d5728" data-execution_count="59">
 <div class="sourceCode cell-code" id="cb53"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Change the url to desired coffee chain</span></span>
 <span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>url <span class="op">=</span> <span class="st">&quot;https://www.menuism.com/restaurant-locations/mcdonalds-21019&quot;</span></span>
 <span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> scrape_menuism(url)</span>
