@@ -3697,35 +3697,41 @@ dtype: int64</code></pre>
 <section id="part-two-simple-linear-models" class="level1">
 <h1><strong>Part Two: Simple Linear Models</strong></h1>
 <p><em>1. Construct a simple linear model to predict the insurance charges from the beneficiary’s age. Discuss the model fit, and interpret the coefficient estimates.</em></p>
-<div class="cell">
+<div class="cell" data-execution_count="129">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Importing libraries</span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LinearRegression</span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> mean_squared_error, r2_score</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LinearRegression</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> mean_squared_error, r2_score</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Defining the response and predictor variables</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> ins_costs[[<span class="st">&#39;age&#39;</span>]]</span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> ins_costs[<span class="st">&#39;charges&#39;</span>]</span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Splitting the data into training and test sets</span></span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>X_train, X_test, y_train, y_test <span class="op">=</span> train_test_split(X, y, test_size<span class="op">=</span><span class="fl">0.25</span>, random_state<span class="op">=</span><span class="dv">42</span>) <span class="co"># why 42? because it&#39;s the answer to life, &amp; everything</span></span>
-<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Fitting the model on the training data</span></span>
-<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>lr1 <span class="op">=</span> LinearRegression()</span>
-<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>lr1.fit(X_train, y_train)</span>
-<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Predicting on the test data</span></span>
-<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>y_pred_test_1 <span class="op">=</span> lr1.predict(X_test)</span>
-<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>mse_test_1 <span class="op">=</span> mean_squared_error(y_test, y_pred_test_1)</span>
-<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a>r2_test_1 <span class="op">=</span> r2_score(y_test, y_pred_test_1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-execution_count="130">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Reading in the data</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>ins_costs <span class="op">=</span> pd.read_csv(<span class="st">&quot;https://www.dropbox.com/s/bocjjyo1ehr5auz/insurance_costs_1.csv?dl=1&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="106">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Defining the response and predictor variables</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> ins_costs[[<span class="st">&#39;age&#39;</span>]]</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> ins_costs[<span class="st">&#39;charges&#39;</span>]</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Splitting the data into training and test sets</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>X_train, X_test, y_train, y_test <span class="op">=</span> train_test_split(X, y, test_size<span class="op">=</span><span class="fl">0.25</span>, random_state<span class="op">=</span><span class="dv">42</span>) <span class="co"># why 42? because it&#39;s the answer to life, &amp; everything</span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Fitting the model on the training data</span></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>lr1 <span class="op">=</span> LinearRegression()</span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>lr1.fit(X_train, y_train)</span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Predicting on the test data</span></span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>y_pred_test_1 <span class="op">=</span> lr1.predict(X_test)</span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>mse_test_1 <span class="op">=</span> mean_squared_error(y_test, y_pred_test_1)</span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a>r2_test_1 <span class="op">=</span> r2_score(y_test, y_pred_test_1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell" data-outputid="aff0e469-ae1c-47c4-af1b-87175e607da3">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Print the performance for the model based on age only</span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f&quot;Test MSE for Model 1: </span><span class="sc">{</span>mse_test_1<span class="sc">:.2f}</span><span class="ss">&quot;</span>)</span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f&quot;Test R-squared for Model 1: </span><span class="sc">{</span>r2_test_1<span class="sc">:.2f}</span><span class="ss">&quot;</span>)</span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f&quot;y-int: </span><span class="sc">{</span>lr1<span class="sc">.</span>intercept_<span class="sc">:.2f}</span><span class="ss">&quot;</span>)</span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f&quot;Coeff [age]: </span><span class="sc">{</span>lr1<span class="sc">.</span>coef_[<span class="dv">0</span>]<span class="sc">:.2f}</span><span class="ss">&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Print the performance for the model based on age only</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f&quot;Test MSE for Model 1: </span><span class="sc">{</span>mse_test_1<span class="sc">:.2f}</span><span class="ss">&quot;</span>)</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f&quot;Test R-squared for Model 1: </span><span class="sc">{</span>r2_test_1<span class="sc">:.2f}</span><span class="ss">&quot;</span>)</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f&quot;y-int: </span><span class="sc">{</span>lr1<span class="sc">.</span>intercept_<span class="sc">:.2f}</span><span class="ss">&quot;</span>)</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f&quot;Coeff [age]: </span><span class="sc">{</span>lr1<span class="sc">.</span>coef_[<span class="dv">0</span>]<span class="sc">:.2f}</span><span class="ss">&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Test MSE for Model 1: 121801716.16
 Test R-squared for Model 1: 0.14
@@ -3739,348 +3745,73 @@ Coeff [age]: 211.69</code></pre>
 <li><p>The coefficient for the age variable indicates that with every 1 unit of change in age, there is a $211.69 change in insurance costs, holding all else constant.</p></li>
 </ul>
 <p><em>2. Make a model that also incorporates the variable sex. Report your results.</em></p>
-<div class="cell" data-outputid="19a1815f-6571-43a1-9144-46a09aef57be">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Creating dummy variables and creating a reference variable for each</span></span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>ins_costs_dummies <span class="op">=</span> pd.get_dummies(ins_costs, drop_first<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>ins_costs_dummies.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="58">
-
-  <div id="df-a7e4d8c5-ea64-4d92-8b55-d7f607b6749a" class="colab-df-container">
-    <div>
-
-
-<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
-<thead>
-<tr class="header">
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">age</th>
-<th data-quarto-table-cell-role="th">bmi</th>
-<th data-quarto-table-cell-role="th">charges</th>
-<th data-quarto-table-cell-role="th">sex_male</th>
-<th data-quarto-table-cell-role="th">smoker_yes</th>
-<th data-quarto-table-cell-role="th">region_northwest</th>
-<th data-quarto-table-cell-role="th">region_southeast</th>
-<th data-quarto-table-cell-role="th">region_southwest</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">0</td>
-<td>19</td>
-<td>27.900</td>
-<td>16884.92400</td>
-<td>0</td>
-<td>1</td>
-<td>0</td>
-<td>0</td>
-<td>1</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">1</td>
-<td>33</td>
-<td>22.705</td>
-<td>21984.47061</td>
-<td>1</td>
-<td>0</td>
-<td>1</td>
-<td>0</td>
-<td>0</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">2</td>
-<td>32</td>
-<td>28.880</td>
-<td>3866.85520</td>
-<td>1</td>
-<td>0</td>
-<td>1</td>
-<td>0</td>
-<td>0</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">3</td>
-<td>31</td>
-<td>25.740</td>
-<td>3756.62160</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>1</td>
-<td>0</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">4</td>
-<td>60</td>
-<td>25.840</td>
-<td>28923.13692</td>
-<td>0</td>
-<td>0</td>
-<td>1</td>
-<td>0</td>
-<td>0</td>
-</tr>
-</tbody>
-</table>
-
-
+<div class="cell" data-execution_count="131">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Creating dummy variables and creating a reference variable for each</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>ins_costs_dummies <span class="op">=</span> pd.get_dummies(ins_costs, drop_first<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-    <div class="colab-df-buttons">
-
-  <div class="colab-df-container">
-    <button class="colab-df-convert" onclick="convertToInteractive(&#39;df-a7e4d8c5-ea64-4d92-8b55-d7f607b6749a&#39;)" title="Convert this dataframe to an interactive table." style="display:none;">
-
-  <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewbox="0 -960 960 960">
-    <path d="M120-120v-720h720v720H120Zm60-500h600v-160H180v160Zm220 220h160v-160H400v160Zm0 220h160v-160H400v160ZM180-400h160v-160H180v160Zm440 0h160v-160H620v160ZM180-180h160v-160H180v160Zm440 0h160v-160H620v160Z"></path>
-  </svg>
-    </button>
-
-  <style>
-.colab-df-container {
-display:flex;
-gap: 12px;
-}
-.colab-df-convert {
-background-color: #E8F0FE;
-border: none;
-border-radius: 50%;
-cursor: pointer;
-display: none;
-fill: #1967D2;
-height: 32px;
-padding: 0 0 0 0;
-width: 32px;
-}
-.colab-df-convert:hover {
-background-color: #E2EBFA;
-box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
-fill: #174EA6;
-}
-.colab-df-buttons div {
-margin-bottom: 4px;
-}
-[theme=dark] .colab-df-convert {
-background-color: #3B4455;
-fill: #D2E3FC;
-}
-[theme=dark] .colab-df-convert:hover {
-background-color: #434B5C;
-box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
-filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
-fill: #FFFFFF;
-}
-</style>
-
-    <script>
-      const buttonEl =
-        document.querySelector('#df-a7e4d8c5-ea64-4d92-8b55-d7f607b6749a button.colab-df-convert');
-      buttonEl.style.display =
-        google.colab.kernel.accessAllowed ? 'block' : 'none';
-
-      async function convertToInteractive(key) {
-        const element = document.querySelector('#df-a7e4d8c5-ea64-4d92-8b55-d7f607b6749a');
-        const dataTable =
-          await google.colab.kernel.invokeFunction('convertToInteractive',
-                                                    [key], {});
-        if (!dataTable) return;
-
-        const docLinkHtml = 'Like what you see? Visit the ' +
-          '<a target="_blank" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'
-          + ' to learn more about interactive tables.';
-        element.innerHTML = '';
-        dataTable['output_type'] = 'display_data';
-        await google.colab.output.renderOutput(dataTable, element);
-        const docLink = document.createElement('div');
-        docLink.innerHTML = docLinkHtml;
-        element.appendChild(docLink);
-      }
-    </script>
-  </div>
-
-
-<div id="df-693dad13-e570-4b64-9635-994b92b3f1ab">
-  <button class="colab-df-quickchart" onclick="quickchart(&#39;df-693dad13-e570-4b64-9635-994b92b3f1ab&#39;)" title="Suggest charts." style="display:none;">
-
-<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewbox="0 0 24 24" width="24px">
-    <g>
-        <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"></path>
-    </g>
-</svg>
-  </button>
-
-<style>
-.colab-df-quickchart {
---bg-color: #E8F0FE;
---fill-color: #1967D2;
---hover-bg-color: #E2EBFA;
---hover-fill-color: #174EA6;
---disabled-fill-color: #AAA;
---disabled-bg-color: #DDD;
-}
-[theme=dark] .colab-df-quickchart {
---bg-color: #3B4455;
---fill-color: #D2E3FC;
---hover-bg-color: #434B5C;
---hover-fill-color: #FFFFFF;
---disabled-bg-color: #3B4455;
---disabled-fill-color: #666;
-}
-.colab-df-quickchart {
-background-color: var(--bg-color);
-border: none;
-border-radius: 50%;
-cursor: pointer;
-display: none;
-fill: var(--fill-color);
-height: 32px;
-padding: 0;
-width: 32px;
-}
-.colab-df-quickchart:hover {
-background-color: var(--hover-bg-color);
-box-shadow: 0 1px 2px rgba(60, 64, 67, 0.3), 0 1px 3px 1px rgba(60, 64, 67, 0.15);
-fill: var(--button-hover-fill-color);
-}
-.colab-df-quickchart-complete:disabled,
-.colab-df-quickchart-complete:disabled:hover {
-background-color: var(--disabled-bg-color);
-fill: var(--disabled-fill-color);
-box-shadow: none;
-}
-.colab-df-spinner {
-border: 2px solid var(--fill-color);
-border-color: transparent;
-border-bottom-color: var(--fill-color);
-animation:
-spin 1s steps(1) infinite;
-}
-@keyframes spin {
-0% {
-border-color: transparent;
-border-bottom-color: var(--fill-color);
-border-left-color: var(--fill-color);
-}
-20% {
-border-color: transparent;
-border-left-color: var(--fill-color);
-border-top-color: var(--fill-color);
-}
-30% {
-border-color: transparent;
-border-left-color: var(--fill-color);
-border-top-color: var(--fill-color);
-border-right-color: var(--fill-color);
-}
-40% {
-border-color: transparent;
-border-right-color: var(--fill-color);
-border-top-color: var(--fill-color);
-}
-60% {
-border-color: transparent;
-border-right-color: var(--fill-color);
-}
-80% {
-border-color: transparent;
-border-right-color: var(--fill-color);
-border-bottom-color: var(--fill-color);
-}
-90% {
-border-color: transparent;
-border-bottom-color: var(--fill-color);
-}
-}
-</style>
-
-  <script>
-    async function quickchart(key) {
-      const quickchartButtonEl =
-        document.querySelector('#' + key + ' button');
-      quickchartButtonEl.disabled = true;  // To prevent multiple clicks.
-      quickchartButtonEl.classList.add('colab-df-spinner');
-      try {
-        const charts = await google.colab.kernel.invokeFunction(
-            'suggestCharts', [key], {});
-      } catch (error) {
-        console.error('Error during call to suggestCharts:', error);
-      }
-      quickchartButtonEl.classList.remove('colab-df-spinner');
-      quickchartButtonEl.classList.add('colab-df-quickchart-complete');
-    }
-    (() => {
-      let quickchartButtonEl =
-        document.querySelector('#df-693dad13-e570-4b64-9635-994b92b3f1ab button');
-      quickchartButtonEl.style.display =
-        google.colab.kernel.accessAllowed ? 'block' : 'none';
-    })();
-  </script>
+<div class="cell" data-execution_count="108">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Defining the response and predictor variables</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> ins_costs_dummies[[<span class="st">&#39;age&#39;</span>, <span class="st">&#39;sex_male&#39;</span>]]</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> ins_costs_dummies[<span class="st">&#39;charges&#39;</span>]</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Splitting the data into training and test sets</span></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>X_train, X_test, y_train, y_test <span class="op">=</span> train_test_split(X, y, test_size<span class="op">=</span><span class="fl">0.25</span>, random_state<span class="op">=</span><span class="dv">42</span>)</span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Fitting the model on the training data</span></span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>lr2 <span class="op">=</span> LinearRegression()</span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>lr2.fit(X_train, y_train)</span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Predicting and evaluating on the test data</span></span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a>y_pred_test_2 <span class="op">=</span> lr2.predict(X_test)</span>
+<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a>mse_test_2 <span class="op">=</span> mean_squared_error(y_test, y_pred_test_2)</span>
+<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a>r2_test_2 <span class="op">=</span> r2_score(y_test, y_pred_test_2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-    </div>
-  </div>
-</div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Defining the response and predictor variables</span></span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> ins_costs_dummies[[<span class="st">&#39;age&#39;</span>, <span class="st">&#39;sex_male&#39;</span>]]</span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> ins_costs_dummies[<span class="st">&#39;charges&#39;</span>]</span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Splitting the data into training and test sets</span></span>
-<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>X_train, X_test, y_train, y_test <span class="op">=</span> train_test_split(X, y, test_size<span class="op">=</span><span class="fl">0.25</span>, random_state<span class="op">=</span><span class="dv">42</span>)</span>
-<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Fitting the model on the training data</span></span>
-<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>lr2 <span class="op">=</span> LinearRegression()</span>
-<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>lr2.fit(X_train, y_train)</span>
-<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Predicting and evaluating on the test data</span></span>
-<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a>y_pred_test_2 <span class="op">=</span> lr2.predict(X_test)</span>
-<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a>mse_test_2 <span class="op">=</span> mean_squared_error(y_test, y_pred_test_2)</span>
-<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a>r2_test_2 <span class="op">=</span> r2_score(y_test, y_pred_test_2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell" data-outputid="48cd7fe7-02b9-4403-872c-daa90cc51200">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Printing the performance for the model based on age and sex</span></span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f&quot;Test MSE for Model 2: </span><span class="sc">{</span>mse_test_2<span class="sc">:.2f}</span><span class="ss">&quot;</span>)</span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f&quot;Test R-squared for Model 2: </span><span class="sc">{</span>r2_test_2<span class="sc">:.2f}</span><span class="ss">&quot;</span>)</span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f&quot;y-int: </span><span class="sc">{</span>lr2<span class="sc">.</span>intercept_<span class="sc">:.2f}</span><span class="ss">&quot;</span>)</span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f&quot;Coeff [age]: </span><span class="sc">{</span>lr2<span class="sc">.</span>coef_[<span class="dv">0</span>]<span class="sc">:.2f}</span><span class="ss">&quot;</span>)</span>
-<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f&quot;Coeff [sex_male]: </span><span class="sc">{</span>lr2<span class="sc">.</span>coef_[<span class="dv">1</span>]<span class="sc">:.2f}</span><span class="ss">&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-outputid="689728aa-5dab-4d29-e7c8-33200f39112b" data-execution_count="109">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Printing the performance for the model based on age and sex</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f&quot;Test MSE for Model 2: </span><span class="sc">{</span>mse_test_2<span class="sc">:.2f}</span><span class="ss">&quot;</span>)</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f&quot;Test R-squared for Model 2: </span><span class="sc">{</span>r2_test_2<span class="sc">:.2f}</span><span class="ss">&quot;</span>)</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f&quot;y-int: </span><span class="sc">{</span>lr2<span class="sc">.</span>intercept_<span class="sc">:.2f}</span><span class="ss">&quot;</span>)</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f&quot;Coeff [age]: </span><span class="sc">{</span>lr2<span class="sc">.</span>coef_[<span class="dv">0</span>]<span class="sc">:.2f}</span><span class="ss">&quot;</span>)</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f&quot;Coeff [sex_male]: </span><span class="sc">{</span>lr2<span class="sc">.</span>coef_[<span class="dv">1</span>]<span class="sc">:.2f}</span><span class="ss">&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Test MSE for Model 2: 144189669.48
-Test R-squared for Model 2: 0.11
-y-int: 3298.21
-Coeff [age]: 213.46
-Coeff [sex_male]: 1604.48</code></pre>
+<pre><code>Test MSE for Model 2: 123710493.46
+Test R-squared for Model 2: 0.13
+y-int: 3755.23
+Coeff [age]: 209.30
+Coeff [sex_male]: 1473.53</code></pre>
 </div>
 </div>
 <ul>
-<li><pre><code>This model that incorporates the age and sex variable has an r-squared value of 0.11, which indicates that only 11% of the variability is explained by the model. This performed worse than just age alone, and this could mean that incorporating other variables such as bmi, smoker, and/or region could better fit the model than age and sex.</code></pre></li>
-<li><pre><code>The y-intercept value indicates that at age 0, there is an estimated charge of $3298.21.</code></pre></li>
+<li><p>This model that incorporates the age and sex variable has an r-squared value of 0.11, which indicates that only 11% of the variability is explained by the model. This performed worse than just age alone, and this could mean that incorporating other variables such as bmi, smoker, and/or region could better fit the model than age and sex.</p></li>
+<li><p>The y-intercept value indicates that at age 0, there is an estimated charge of $3298.21.</p></li>
 <li><p>The coefficient for age is 213.46, which indicates that with 1 unit change in age, holding all else constant, there would be a $213.46 change in insurance charges.</p></li>
-<li><pre><code>The coefficient for sex_male is 1604.48, which would indicate that being male is associated with an increase in insurance charges by $1604.48, holding all else constant.</code></pre></li>
+<li><p>The coefficient for sex_male is 1604.48, which would indicate that being male is associated with an increase in insurance charges by $1604.48, holding all else constant.</p></li>
 </ul>
 <p><em>3. Now make a model that does not include sex, but does include smoker. Report your results.</em></p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Defining the response and predictor variables</span></span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> ins_costs_dummies[[<span class="st">&#39;age&#39;</span>, <span class="st">&#39;smoker_yes&#39;</span>]]</span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> ins_costs_dummies[<span class="st">&#39;charges&#39;</span>]</span>
-<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Split the data into training and test sets</span></span>
-<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>X_train, X_test, y_train, y_test <span class="op">=</span> train_test_split(X, y, test_size<span class="op">=</span><span class="fl">0.25</span>, random_state<span class="op">=</span><span class="dv">42</span>)</span>
-<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Fit the model on the training data</span></span>
-<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>lr3 <span class="op">=</span> LinearRegression()</span>
-<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>lr3.fit(X_train, y_train)</span>
-<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Predict and evaluate on the test data</span></span>
-<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a>y_pred_test_3 <span class="op">=</span> lr3.predict(X_test)</span>
-<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a>mse_test_3 <span class="op">=</span> mean_squared_error(y_test, y_pred_test_3)</span>
-<span id="cb24-15"><a href="#cb24-15" aria-hidden="true" tabindex="-1"></a>r2_test_3 <span class="op">=</span> r2_score(y_test, y_pred_test_3)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-execution_count="110">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Defining the response and predictor variables</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> ins_costs_dummies[[<span class="st">&#39;age&#39;</span>, <span class="st">&#39;smoker_yes&#39;</span>]]</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> ins_costs_dummies[<span class="st">&#39;charges&#39;</span>]</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Split the data into training and test sets</span></span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>X_train, X_test, y_train, y_test <span class="op">=</span> train_test_split(X, y, test_size<span class="op">=</span><span class="fl">0.25</span>, random_state<span class="op">=</span><span class="dv">42</span>)</span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Fit the model on the training data</span></span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>lr3 <span class="op">=</span> LinearRegression()</span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>lr3.fit(X_train, y_train)</span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Predict and evaluate on the test data</span></span>
+<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a>y_pred_test_3 <span class="op">=</span> lr3.predict(X_test)</span>
+<span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a>mse_test_3 <span class="op">=</span> mean_squared_error(y_test, y_pred_test_3)</span>
+<span id="cb22-15"><a href="#cb22-15" aria-hidden="true" tabindex="-1"></a>r2_test_3 <span class="op">=</span> r2_score(y_test, y_pred_test_3)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-outputid="812d0e4a-de8d-4973-b54e-2cd9f503fa1a">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Printing the performance for the model based on age and smoker</span></span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f&quot;Test MSE for Model 3: </span><span class="sc">{</span>mse_test_3<span class="sc">:.2f}</span><span class="ss">&quot;</span>)</span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f&quot;Test R-squared for Model 3: </span><span class="sc">{</span>r2_test_3<span class="sc">:.2f}</span><span class="ss">&quot;</span>)</span>
-<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f&quot;y-int: </span><span class="sc">{</span>lr3<span class="sc">.</span>intercept_<span class="sc">:.2f}</span><span class="ss">&quot;</span>)</span>
-<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f&quot;Coeff [Age]: </span><span class="sc">{</span>lr3<span class="sc">.</span>coef_[<span class="dv">0</span>]<span class="sc">:.2f}</span><span class="ss">&quot;</span>)</span>
-<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f&quot;Coeff [Smoker_Yes]: </span><span class="sc">{</span>lr3<span class="sc">.</span>coef_[<span class="dv">1</span>]<span class="sc">:.2f}</span><span class="ss">&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-outputid="9e7331ab-c780-435c-dbe1-d8a46cde94ab" data-execution_count="111">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Printing the performance for the model based on age and smoker</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f&quot;Test MSE for Model 3: </span><span class="sc">{</span>mse_test_3<span class="sc">:.2f}</span><span class="ss">&quot;</span>)</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f&quot;Test R-squared for Model 3: </span><span class="sc">{</span>r2_test_3<span class="sc">:.2f}</span><span class="ss">&quot;</span>)</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f&quot;y-int: </span><span class="sc">{</span>lr3<span class="sc">.</span>intercept_<span class="sc">:.2f}</span><span class="ss">&quot;</span>)</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f&quot;Coeff [Age]: </span><span class="sc">{</span>lr3<span class="sc">.</span>coef_[<span class="dv">0</span>]<span class="sc">:.2f}</span><span class="ss">&quot;</span>)</span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f&quot;Coeff [Smoker_Yes]: </span><span class="sc">{</span>lr3<span class="sc">.</span>coef_[<span class="dv">1</span>]<span class="sc">:.2f}</span><span class="ss">&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Test MSE for Model 3: 27352787.78
 Test R-squared for Model 3: 0.81
@@ -4096,19 +3827,19 @@ Coeff [Smoker_Yes]: 23783.24</code></pre>
 <li><p>The coefficient for being a smoker is 23783.24 and this indicates that being a smoker results in a increase in insurance charge by $23783.24.</p></li>
 </ul>
 <p><em>4. Which model (Q2 or Q3) do you think better fits the data? Justify your answer by calculating the MSE for each model, and also by comparing R-squared values.</em></p>
-<div class="cell" data-outputid="518c3c59-8542-4daa-f4d5-3e042b60761c">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Comparing the models based on test MSE and R-squared</span></span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;Comparison of Model 2 and 3 based on Test Data:&quot;</span>)</span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f&quot;Test MSE for Model 2: </span><span class="sc">{</span>mse_test_2<span class="sc">:.2f}</span><span class="ss"> vs Model 3: </span><span class="sc">{</span>mse_test_3<span class="sc">:.2f}</span><span class="ss">&quot;</span>)</span>
-<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f&quot;Test R-squared for Model 2: </span><span class="sc">{</span>r2_test_2<span class="sc">:.2f}</span><span class="ss"> vs Model 3: </span><span class="sc">{</span>r2_test_3<span class="sc">:.2f}</span><span class="ss">&quot;</span>)</span>
-<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>()</span>
-<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;Model 1 results:&quot;</span>)</span>
-<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f&quot;Test MSE for Model 1: </span><span class="sc">{</span>mse_test_1<span class="sc">:.2f}</span><span class="ss">&quot;</span>)</span>
-<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f&quot;Test R-squared for Model 1: </span><span class="sc">{</span>r2_test_1<span class="sc">:.2f}</span><span class="ss">&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-outputid="60bd1aff-7b29-47f0-bc9f-64c2fd6c152e" data-execution_count="112">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Comparing the models based on test MSE and R-squared</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;Comparison of Model 2 and 3 based on Test Data:&quot;</span>)</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f&quot;Test MSE for Model 2: </span><span class="sc">{</span>mse_test_2<span class="sc">:.2f}</span><span class="ss"> vs Model 3: </span><span class="sc">{</span>mse_test_3<span class="sc">:.2f}</span><span class="ss">&quot;</span>)</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f&quot;Test R-squared for Model 2: </span><span class="sc">{</span>r2_test_2<span class="sc">:.2f}</span><span class="ss"> vs Model 3: </span><span class="sc">{</span>r2_test_3<span class="sc">:.2f}</span><span class="ss">&quot;</span>)</span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>()</span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;Model 1 results:&quot;</span>)</span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f&quot;Test MSE for Model 1: </span><span class="sc">{</span>mse_test_1<span class="sc">:.2f}</span><span class="ss">&quot;</span>)</span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f&quot;Test R-squared for Model 1: </span><span class="sc">{</span>r2_test_1<span class="sc">:.2f}</span><span class="ss">&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Comparison of Model 2 and 3 based on Test Data:
-Test MSE for Model 2: 144189669.48 vs Model 3: 27352787.78
-Test R-squared for Model 2: 0.11 vs Model 3: 0.81
+Test MSE for Model 2: 123710493.46 vs Model 3: 27352787.78
+Test R-squared for Model 2: 0.13 vs Model 3: 0.81
 
 Model 1 results:
 Test MSE for Model 1: 121801716.16
@@ -4125,26 +3856,34 @@ Test R-squared for Model 1: 0.14</code></pre>
 <h1><strong>Part Three: Multiple Linear Models</strong></h1>
 <p>Now let’s consider including multiple quantitative predictors.</p>
 <p><em>1. Fit a model that uses age and bmi as predictors.</em> (Do not include an interaction term, age*bmi, between these two.) <em>Report your results. How does the MSE compare to the model in Part Two Q1? How does the R-squared compare?</em></p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Importing libraries</span></span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
-<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LinearRegression</span>
-<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> mean_squared_error, r2_score</span>
-<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> PolynomialFeatures</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-execution_count="100">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Importing libraries</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LinearRegression</span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> mean_squared_error, r2_score</span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> PolynomialFeatures</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell">
+<div class="cell" data-execution_count="114">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Reading in the data</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>ins_costs <span class="op">=</span> pd.read_csv(<span class="st">&quot;https://www.dropbox.com/s/bocjjyo1ehr5auz/insurance_costs_1.csv?dl=1&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="116">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Creating dummy variables and creating a reference variable for each</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>ins_costs_dummies <span class="op">=</span> pd.get_dummies(ins_costs, drop_first<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="117">
 <div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Splitting the data into training and test sets</span></span>
 <span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> ins_costs_dummies[[<span class="st">&#39;age&#39;</span>, <span class="st">&#39;bmi&#39;</span>]]</span>
 <span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> ins_costs_dummies[<span class="st">&#39;charges&#39;</span>]</span>
 <span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>X_train, X_test, y_train, y_test <span class="op">=</span> train_test_split(X, y, test_size<span class="op">=</span><span class="fl">0.25</span>, random_state<span class="op">=</span><span class="dv">42</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Initialize a dictionary to store model performance</span></span>
+<div class="cell" data-execution_count="118">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Initializing a dictionary to store model performance</span></span>
 <span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>model_performance <span class="op">=</span> {}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell">
+<div class="cell" data-execution_count="119">
 <div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Model 4: Age and BMI</span></span>
 <span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>lr4 <span class="op">=</span> LinearRegression()</span>
 <span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>lr4.fit(X_train, y_train)</span>
@@ -4153,7 +3892,7 @@ Test R-squared for Model 1: 0.14</code></pre>
 <span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>r2_4 <span class="op">=</span> r2_score(y_test, y_pred4)</span>
 <span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a>model_performance[<span class="st">&#39;Model 4: Age, BMI&#39;</span>] <span class="op">=</span> {<span class="st">&#39;MSE&#39;</span>: mse_4, <span class="st">&#39;R2&#39;</span>: r2_4}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-outputid="9f48e6cc-dd9d-4b06-e9f0-21e85c543772">
+<div class="cell" data-outputid="45db78fb-a355-4e76-c0e0-495e32d22934" data-execution_count="120">
 <div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Defining P2_Q1&#39;s Performance Metrics</span></span>
 <span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>p2_q1_r2 <span class="op">=</span> <span class="fl">0.14</span></span>
 <span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>p2_q1_mse <span class="op">=</span> <span class="fl">121801716.16</span></span>
@@ -4178,7 +3917,7 @@ Root Mean Squared Error for Model 4: 10849.74 (P2_Q1 RMSE: 11036.38)</code></pre
 <li>Model 4 with predictor variables age and bmi, without an interaction term between them, had a MSE of 117716955.13, which was slightly better at explaining the variability in the model than P2_Q1’s Model 1 at 121801716.16. The R2 score tells the same story; Model 4, 0.17, was slightly better than Model 1, 0.14.</li>
 </ul>
 <p><em>2. Perhaps the relationships are not linear. Fit a model that uses age and age^2 as predictors. How do the MSE and R-squared compare to the model in P2 Q1?</em></p>
-<div class="cell">
+<div class="cell" data-execution_count="121">
 <div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Model 5: Age and Age Squared</span></span>
 <span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>X_train_5 <span class="op">=</span> X_train.copy()</span>
 <span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>X_train_5[<span class="st">&#39;age_squared&#39;</span>] <span class="op">=</span> X_train_5[<span class="st">&#39;age&#39;</span>] <span class="op">**</span> <span class="dv">2</span></span>
@@ -4192,7 +3931,7 @@ Root Mean Squared Error for Model 4: 10849.74 (P2_Q1 RMSE: 11036.38)</code></pre
 <span id="cb35-11"><a href="#cb35-11" aria-hidden="true" tabindex="-1"></a>r2_5 <span class="op">=</span> r2_score(y_test, y_pred5)</span>
 <span id="cb35-12"><a href="#cb35-12" aria-hidden="true" tabindex="-1"></a>model_performance[<span class="st">&#39;Model 5: Age, Age Squared&#39;</span>] <span class="op">=</span> {<span class="st">&#39;MSE&#39;</span>: mse_5, <span class="st">&#39;R2&#39;</span>: r2_5}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-outputid="f2719e7c-9a92-4670-a210-530a20cffea1">
+<div class="cell" data-outputid="fb0cbe43-5ce8-41d3-bd74-921e0ac0f2a0" data-execution_count="122">
 <div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculating MSE and RMSE for model 5</span></span>
 <span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>mse_5 <span class="op">=</span> mean_squared_error(y_test, y_pred5)</span>
 <span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>rmse_5 <span class="op">=</span> np.sqrt(mse_5)</span>
@@ -4210,7 +3949,7 @@ Root Mean Squared Error for Model 5: 10847.71 (P2_Q1 RMSE: 11036.38)</code></pre
 <li>Model 5 with predictor variables age and age^2 had a MSE of 117,672,740.52, which was only slightly better at explaining the variability than Model 1 at 121,801,716.16, and ever so slightly better than Model 4 at 117,716,955.13. The R2 score tells the same story; Model 5’s R2 of 0.17 was better than Model 1’s R2 of 0.14 from Part Two Q1, but was the same as Model 4’s R2 score above.</li>
 </ul>
 <p><em>3. Fit a polynomial model of degree 4. How do the MSE and R-squared compare to the model in P2 Q1?</em></p>
-<div class="cell">
+<div class="cell" data-execution_count="123">
 <div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Model 6: Polynomial Degree 4</span></span>
 <span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>poly4 <span class="op">=</span> PolynomialFeatures(degree<span class="op">=</span><span class="dv">4</span>, include_bias<span class="op">=</span><span class="va">False</span>)</span>
 <span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>X_train_poly4 <span class="op">=</span> poly4.fit_transform(X_train[[<span class="st">&#39;age&#39;</span>]])</span>
@@ -4222,7 +3961,7 @@ Root Mean Squared Error for Model 5: 10847.71 (P2_Q1 RMSE: 11036.38)</code></pre
 <span id="cb38-9"><a href="#cb38-9" aria-hidden="true" tabindex="-1"></a>r2_6 <span class="op">=</span> r2_score(y_test, y_pred6)</span>
 <span id="cb38-10"><a href="#cb38-10" aria-hidden="true" tabindex="-1"></a>model_performance[<span class="st">&#39;Model 6: Polynomial Degree 4&#39;</span>] <span class="op">=</span> {<span class="st">&#39;MSE&#39;</span>: mse_6, <span class="st">&#39;R2&#39;</span>: r2_6}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-outputid="edc8cfd3-c534-423f-b950-b55e8dbfadf6">
+<div class="cell" data-outputid="f97c9198-a201-47c6-e07d-ae18c82fd88f" data-execution_count="124">
 <div class="sourceCode cell-code" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculating MSE and RMSE for model 6</span></span>
 <span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>mse_6 <span class="op">=</span> mean_squared_error(y_test, y_pred6)</span>
 <span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>rmse_6 <span class="op">=</span> np.sqrt(mse_6)</span>
@@ -4240,7 +3979,7 @@ Root Mean Squared Error for Model 6: 10948.98 (P2_Q1 RMSE: 11036.38)</code></pre
 <li>Model 6 with predictor variables age, age^2, age^3, and age^4 had a MSE of 119,880,218.41, and R2 score of 0.15, which was slightly better at explaining the variability than P2 Q1’s Model 1 at MSE of 119,880,218.41 and R2 of 0.14.</li>
 </ul>
 <p><em>4. Fit a polynomial model of degree 12. How do the MSE and R-squared compare to the model in P2 Q1?</em></p>
-<div class="cell">
+<div class="cell" data-execution_count="125">
 <div class="sourceCode cell-code" id="cb41"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Model 7: Polynomial Degree 12</span></span>
 <span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>poly12 <span class="op">=</span> PolynomialFeatures(degree<span class="op">=</span><span class="dv">12</span>, include_bias<span class="op">=</span><span class="va">False</span>)</span>
 <span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>X_train_poly12 <span class="op">=</span> poly12.fit_transform(X_train[[<span class="st">&#39;age&#39;</span>]])</span>
@@ -4252,7 +3991,7 @@ Root Mean Squared Error for Model 6: 10948.98 (P2_Q1 RMSE: 11036.38)</code></pre
 <span id="cb41-9"><a href="#cb41-9" aria-hidden="true" tabindex="-1"></a>r2_7 <span class="op">=</span> r2_score(y_test, y_pred7)</span>
 <span id="cb41-10"><a href="#cb41-10" aria-hidden="true" tabindex="-1"></a>model_performance[<span class="st">&#39;Model 7: Polynomial Degree 12&#39;</span>] <span class="op">=</span> {<span class="st">&#39;MSE&#39;</span>: mse_7, <span class="st">&#39;R2&#39;</span>: r2_7}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-outputid="367858d8-d63e-42f8-ac66-6479a54c8858">
+<div class="cell" data-outputid="315dfd3b-70ae-4d1a-ca24-78e6adce1c77" data-execution_count="126">
 <div class="sourceCode cell-code" id="cb42"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculating MSE and RMSE for model 7</span></span>
 <span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>mse_7 <span class="op">=</span> mean_squared_error(y_test, y_pred7)</span>
 <span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>rmse_7 <span class="op">=</span> np.sqrt(mse_7)</span>
@@ -4270,24 +4009,24 @@ Root Mean Squared Error for Model 7: 11068.42 (P2_Q1 RMSE: 11036.38)</code></pre
 <li>Model 7 fitting a polynomial model of degree 12, with predictor variables age, age^2, . . . , age^11, and age^12, had a MSE of 122,509,817.50, and R2 score of 0.13, which was slightly worse at explaining the variability than P2 Q1’s Model 1 with an MSE of 121,801,716.16 and an R2 of 0.14. However, it’s MSE was higher than Model 6 with the degree 4 polynomial model at 119,880,218.41. The R2 was lower than Model 6, so adding more polynomial variables made the model worse.</li>
 </ul>
 <p><em>5. According to the MSE and R-squared, which is the best model? Do you agree that this is indeed the “best” model? Why or why not?</em></p>
-<div class="cell" data-outputid="6c536f2c-1efa-4668-d902-73cab597ebd6">
+<div class="cell" data-outputid="50358094-abfd-4dfc-8d8e-28a088778c26" data-execution_count="127">
 <div class="sourceCode cell-code" id="cb44"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Converting the performance dictionary to a dataframe for comparison</span></span>
 <span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>performance_df <span class="op">=</span> pd.DataFrame(model_performance).T</span>
 <span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(performance_df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>                                        MSE        R2
 Model 4: Age, BMI              1.177170e+08  0.167593
+Model 1: Age                   1.218017e+08  0.138709
 Model 5: Age, Age Squared      1.176727e+08  0.167906
 Model 6: Polynomial Degree 4   1.198802e+08  0.152296
-Model 7: Polynomial Degree 12  1.225098e+08  0.133702
-Model 1: Age                   1.218017e+08  0.138709</code></pre>
+Model 7: Polynomial Degree 12  1.225098e+08  0.133702</code></pre>
 </div>
 </div>
 <ul>
 <li>According to the MSE and R2 scores from Model 1, 4, 5, 6, and 7, the best model would be Model 5, using the age and age^2 variables to predict insurance charges. It had the highest R2 score, 0.167906, and the lowest MSE at 1.176727e+08. It should be noted that Model 4, with age and bmi variables, was not very far behind, and should be considered for model selection as well.</li>
 </ul>
 <p><em>6. Plot the predictions from your model in Q4 as a line plot on top of the scatterplot of your original data.</em></p>
-<div class="cell" data-outputid="036a831e-c6c6-4f95-874c-86ba41a2846f">
+<div class="cell" data-outputid="57e58eff-3375-4273-9a95-a32137e9250d" data-execution_count="128">
 <div class="sourceCode cell-code" id="cb46"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> plotnine <span class="im">import</span> ggplot, geom_point, geom_line, aes, theme, labs, scale_color_manual</span>
 <span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Converting X_test to a dataframe and creating variables for predictions and original data</span></span>
@@ -4329,20 +4068,20 @@ Model 1: Age                   1.218017e+08  0.138709</code></pre>
 <li><p>Report the MSE for each model’s new predictions. Based on this, which is the best model to use?</p></li>
 <li><p>Make a plot showing the residuals of your final chosen model.</p></li>
 </ul>
-<div class="cell" data-execution_count="26">
+<div class="cell" data-execution_count="89">
 <div class="sourceCode cell-code" id="cb48"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Importing libraries</span></span>
 <span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LinearRegression</span>
 <span id="cb48-5"><a href="#cb48-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> mean_squared_error</span>
-<span id="cb48-6"><a href="#cb48-6" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.ensemble <span class="im">import</span> RandomForestRegressor</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb48-6"><a href="#cb48-6" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> PolynomialFeatures</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-execution_count="27">
+<div class="cell" data-execution_count="90">
 <div class="sourceCode cell-code" id="cb49"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Importing the new and original datasets</span></span>
 <span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>ins_costs_og <span class="op">=</span> pd.read_csv(<span class="st">&#39;https://www.dropbox.com/s/bocjjyo1ehr5auz/insurance_costs_1.csv?dl=1&#39;</span>)</span>
 <span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a>ins_costs_new <span class="op">=</span> pd.read_csv(<span class="st">&#39;https://www.dropbox.com/s/sky86agc4s8c6qe/insurance_costs_2.csv?dl=1&#39;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-outputid="97ab7ef9-9f0f-42b8-8390-6807fee81b79" data-execution_count="28">
+<div class="cell" data-outputid="a1fcf940-0f3b-42e5-9cdc-cf6cd121fe65" data-execution_count="91">
 <div class="sourceCode cell-code" id="cb50"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Model 1: only age as a predictor</span></span>
 <span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>lr <span class="op">=</span> LinearRegression()</span>
 <span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -4365,7 +4104,7 @@ Model 1: Age                   1.218017e+08  0.138709</code></pre>
 <pre><code>MSE for model with only age as a predictor: 136077136.50</code></pre>
 </div>
 </div>
-<div class="cell" data-outputid="0f8642fa-af04-4f57-c78e-2375894b3518" data-execution_count="29">
+<div class="cell" data-outputid="6eedb7bb-c1eb-4867-9f62-f116e30806c5" data-execution_count="92">
 <div class="sourceCode cell-code" id="cb52"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Model 2: age and bmi as a predictor</span></span>
 <span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Setting the predictor and response variables</span></span>
 <span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a>X_original_age_bmi <span class="op">=</span> ins_costs_og[[<span class="st">&#39;age&#39;</span>, <span class="st">&#39;bmi&#39;</span>]]</span>
@@ -4386,7 +4125,7 @@ Model 1: Age                   1.218017e+08  0.138709</code></pre>
 <pre><code>MSE for model with age and bmi as predictors: 132636406.11</code></pre>
 </div>
 </div>
-<div class="cell" data-outputid="f6b18f69-feb1-43e4-da99-6beb3f2fc1c0" data-execution_count="30">
+<div class="cell" data-outputid="64043309-4fd2-42f7-a08a-8d07258353fd" data-execution_count="93">
 <div class="sourceCode cell-code" id="cb54"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Model 3: age, bmi, and smoker as predictors (no interaction terms)</span></span>
 <span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Create dummy variables for &#39;smoker&#39;</span></span>
 <span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a>ins_costs_og_dummies <span class="op">=</span> pd.get_dummies(ins_costs_og, columns<span class="op">=</span>[<span class="st">&#39;smoker&#39;</span>], drop_first<span class="op">=</span><span class="va">True</span>)</span>
@@ -4411,7 +4150,7 @@ Model 1: Age                   1.218017e+08  0.138709</code></pre>
 <pre><code>MSE for model with age, bmi, and smoker as predictors: 35377541.24</code></pre>
 </div>
 </div>
-<div class="cell" data-outputid="1a1d2380-51dc-4ee1-a6cc-f2782e9376c8" data-execution_count="31">
+<div class="cell" data-outputid="a392082a-e906-4580-9c44-2643b761d457" data-execution_count="94">
 <div class="sourceCode cell-code" id="cb56"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Model 4: age, and bmi, with both quantitative variables having an interaction</span></span>
 <span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a><span class="co"># term with smoker (i.e. the formula ~ (age + bmi):smoker)</span></span>
 <span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -4433,7 +4172,7 @@ Model 1: Age                   1.218017e+08  0.138709</code></pre>
 <pre><code>MSE for model with interaction terms: 21785261.85</code></pre>
 </div>
 </div>
-<div class="cell" data-outputid="a956b7bb-8f53-4b03-d0e5-d32fe8878c88" data-execution_count="32">
+<div class="cell" data-outputid="651d9693-6c5b-4da1-d110-92019ecc84cb" data-execution_count="95">
 <div class="sourceCode cell-code" id="cb58"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Model 5: age, bmi, and smokeras predictors, with both quantitative variables</span></span>
 <span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a><span class="co"># having an interaction term with smoker (i.e. the formula ~ (age + bmi)*smoker)</span></span>
 <span id="cb58-3"><a href="#cb58-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -4461,7 +4200,7 @@ Model 1: Age                   1.218017e+08  0.138709</code></pre>
 <pre><code>MSE for model with full interaction terms: 24795908.41</code></pre>
 </div>
 </div>
-<div class="cell" data-outputid="64ddfa5c-b3a0-4402-e6f3-f15a32ed6f5c" data-execution_count="33">
+<div class="cell" data-outputid="6de05184-74fc-42cd-92db-fed218588114" data-execution_count="96">
 <div class="sourceCode cell-code" id="cb60"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Reporting the MSE for each model&#39;s new predictions</span></span>
 <span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Creating a dictionary with model names and their MSE values</span></span>
 <span id="cb60-3"><a href="#cb60-3" aria-hidden="true" tabindex="-1"></a>mse_values <span class="op">=</span> {</span>
@@ -4482,7 +4221,7 @@ Model 1: Age                   1.218017e+08  0.138709</code></pre>
 4  Age + BMI + Smoker + Full Interaction  2.479591e+07</code></pre>
 </div>
 </div>
-<div class="cell" data-outputid="49900397-8263-4610-aa8a-031fbe163c1a" data-execution_count="34">
+<div class="cell" data-outputid="7422e86b-3d65-47f8-b0d4-ba4ef8dc10a4" data-execution_count="97">
 <div class="sourceCode cell-code" id="cb62"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Finding the model with the lowest MSE</span></span>
 <span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a>lowest_MSE <span class="op">=</span> mse_table.loc[mse_table[<span class="st">&#39;MSE&#39;</span>].idxmin()]</span>
 <span id="cb62-3"><a href="#cb62-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f&quot;The best model is </span><span class="sc">{</span>lowest_MSE[<span class="st">&#39;Model&#39;</span>]<span class="sc">}</span><span class="ss"> with an MSE of </span><span class="sc">{</span>lowest_MSE[<span class="st">&#39;MSE&#39;</span>]<span class="sc">:.2f}</span><span class="ss">&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -4490,7 +4229,7 @@ Model 1: Age                   1.218017e+08  0.138709</code></pre>
 <pre><code>The best model is Age + BMI + Interaction with an MSE of 21785261.85</code></pre>
 </div>
 </div>
-<div class="cell" data-outputid="95c5d74c-2bba-4613-d007-d5b2b6ea1eba" data-execution_count="35">
+<div class="cell" data-outputid="741c5382-335d-4e32-d2b7-824711c9c910" data-execution_count="99">
 <div class="sourceCode cell-code" id="cb64"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> plotnine <span class="im">import</span> ggplot, aes, geom_point, geom_hline, labs</span>
 <span id="cb64-2"><a href="#cb64-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb64-3"><a href="#cb64-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculating the residuals</span></span>
@@ -4527,30 +4266,30 @@ Model 1: Age                   1.218017e+08  0.138709</code></pre>
 <p>Using any variables in this dataset, and any polynomial of those variables, find the model that best predicts on the new data after being fit on the original data.</p>
 <p>Make a plot showing the residuals of your final chosen model.</p>
 <p><em>The Lasso L1 feature selection method was chosen to determine which variables were most important. The numerical variables were scaled and less important variables were reduced to zero. Then, the fitted model was compared with the best model chosen in Part 4.</em></p>
-<div class="cell" data-execution_count="36">
+<div class="cell" data-execution_count="79">
 <div class="sourceCode cell-code" id="cb66"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Importing libraries</span></span>
 <span id="cb66-2"><a href="#cb66-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb66-3"><a href="#cb66-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> StandardScaler</span>
-<span id="cb66-4"><a href="#cb66-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LassoCV, Lasso</span>
-<span id="cb66-5"><a href="#cb66-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb66-4"><a href="#cb66-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LassoCV, Lasso, LinearRegression</span>
+<span id="cb66-5"><a href="#cb66-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> mean_squared_error, r2_score</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-outputid="3af5d187-8abb-4402-9b9a-7c8f93d8a095" data-execution_count="37">
+<div class="cell" data-outputid="7b4e6a8d-c46d-4aa6-c6b1-58b8a483e864" data-execution_count="80">
 <div class="sourceCode cell-code" id="cb67"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Importing the datasets</span></span>
 <span id="cb67-2"><a href="#cb67-2" aria-hidden="true" tabindex="-1"></a>original_data <span class="op">=</span> pd.read_csv(<span class="st">&#39;https://www.dropbox.com/s/bocjjyo1ehr5auz/insurance_costs_1.csv?dl=1&#39;</span>)</span>
 <span id="cb67-3"><a href="#cb67-3" aria-hidden="true" tabindex="-1"></a>new_data <span class="op">=</span> pd.read_csv(<span class="st">&#39;https://www.dropbox.com/s/sky86agc4s8c6qe/insurance_costs_2.csv?dl=1&#39;</span>)</span>
 <span id="cb67-4"><a href="#cb67-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb67-5"><a href="#cb67-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Creating dummy variables for categorical variables</span></span>
-<span id="cb67-6"><a href="#cb67-6" aria-hidden="true" tabindex="-1"></a>original_data_encoded <span class="op">=</span> pd.get_dummies(original_data, drop_first<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb67-7"><a href="#cb67-7" aria-hidden="true" tabindex="-1"></a>new_data_encoded <span class="op">=</span> pd.get_dummies(new_data, drop_first<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb67-6"><a href="#cb67-6" aria-hidden="true" tabindex="-1"></a>original_data_dummies <span class="op">=</span> pd.get_dummies(original_data, drop_first<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb67-7"><a href="#cb67-7" aria-hidden="true" tabindex="-1"></a>new_data_dummies <span class="op">=</span> pd.get_dummies(new_data, drop_first<span class="op">=</span><span class="va">True</span>)</span>
 <span id="cb67-8"><a href="#cb67-8" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb67-9"><a href="#cb67-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Making sure both datasets have the same columns after encoding</span></span>
-<span id="cb67-10"><a href="#cb67-10" aria-hidden="true" tabindex="-1"></a>new_data_encoded <span class="op">=</span> new_data_encoded.reindex(columns<span class="op">=</span>original_data_encoded.columns, fill_value<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb67-10"><a href="#cb67-10" aria-hidden="true" tabindex="-1"></a>new_data_dummies <span class="op">=</span> new_data_dummies.reindex(columns<span class="op">=</span>original_data_dummies.columns, fill_value<span class="op">=</span><span class="dv">0</span>)</span>
 <span id="cb67-11"><a href="#cb67-11" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb67-12"><a href="#cb67-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Separating predictors and response variables</span></span>
-<span id="cb67-13"><a href="#cb67-13" aria-hidden="true" tabindex="-1"></a>X_original <span class="op">=</span> original_data_encoded.drop(<span class="st">&#39;charges&#39;</span>, axis<span class="op">=</span><span class="dv">1</span>)</span>
-<span id="cb67-14"><a href="#cb67-14" aria-hidden="true" tabindex="-1"></a>y_original <span class="op">=</span> original_data_encoded[<span class="st">&#39;charges&#39;</span>]</span>
-<span id="cb67-15"><a href="#cb67-15" aria-hidden="true" tabindex="-1"></a>X_new <span class="op">=</span> new_data_encoded.drop(<span class="st">&#39;charges&#39;</span>, axis<span class="op">=</span><span class="dv">1</span>)</span>
-<span id="cb67-16"><a href="#cb67-16" aria-hidden="true" tabindex="-1"></a>y_new <span class="op">=</span> new_data_encoded[<span class="st">&#39;charges&#39;</span>]</span>
+<span id="cb67-13"><a href="#cb67-13" aria-hidden="true" tabindex="-1"></a>X_original <span class="op">=</span> original_data_dummies.drop(<span class="st">&#39;charges&#39;</span>, axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb67-14"><a href="#cb67-14" aria-hidden="true" tabindex="-1"></a>y_original <span class="op">=</span> original_data_dummies[<span class="st">&#39;charges&#39;</span>]</span>
+<span id="cb67-15"><a href="#cb67-15" aria-hidden="true" tabindex="-1"></a>X_new <span class="op">=</span> new_data_dummies.drop(<span class="st">&#39;charges&#39;</span>, axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb67-16"><a href="#cb67-16" aria-hidden="true" tabindex="-1"></a>y_new <span class="op">=</span> new_data_dummies[<span class="st">&#39;charges&#39;</span>]</span>
 <span id="cb67-17"><a href="#cb67-17" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb67-18"><a href="#cb67-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Identifying the numerical columns for scaling</span></span>
 <span id="cb67-19"><a href="#cb67-19" aria-hidden="true" tabindex="-1"></a>numerical_columns <span class="op">=</span> X_original.select_dtypes(include<span class="op">=</span>[<span class="st">&#39;float64&#39;</span>, <span class="st">&#39;int64&#39;</span>]).columns</span>
@@ -4581,7 +4320,7 @@ region_southeast      -39.787644
 dtype: float64</code></pre>
 </div>
 </div>
-<div class="cell" data-execution_count="38">
+<div class="cell" data-execution_count="81">
 <div class="sourceCode cell-code" id="cb69"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Fitting the Lasso model</span></span>
 <span id="cb69-2"><a href="#cb69-2" aria-hidden="true" tabindex="-1"></a>lasso <span class="op">=</span> Lasso(alpha<span class="op">=</span><span class="fl">1.0</span>, random_state<span class="op">=</span><span class="dv">42</span>)</span>
 <span id="cb69-3"><a href="#cb69-3" aria-hidden="true" tabindex="-1"></a>lasso.fit(X_original_scaled, y_original)</span>
@@ -4593,7 +4332,7 @@ dtype: float64</code></pre>
 <span id="cb69-9"><a href="#cb69-9" aria-hidden="true" tabindex="-1"></a>mse_lasso_data <span class="op">=</span> mean_squared_error(y_new, y_lasso_pred)</span>
 <span id="cb69-10"><a href="#cb69-10" aria-hidden="true" tabindex="-1"></a>r2_lasso_data <span class="op">=</span> lasso.score(X_new_scaled, y_new)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-outputid="56c0822a-c0a9-4279-8a54-69a1ff1596f9" data-execution_count="39">
+<div class="cell" data-outputid="d004742b-a64b-4532-cc90-b12ebb3ed63b" data-execution_count="83">
 <div class="sourceCode cell-code" id="cb70"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> plotnine <span class="im">import</span> ggplot, aes, geom_point, geom_hline, labs</span>
 <span id="cb70-2"><a href="#cb70-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb70-3"><a href="#cb70-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculating the residuals on the new data</span></span>
@@ -4615,7 +4354,7 @@ dtype: float64</code></pre>
 <pre><code></code></pre>
 </div>
 </div>
-<div class="cell" data-outputid="b6377ebe-36c2-4b3a-bc50-c7a0d71fde9a" data-execution_count="40">
+<div class="cell" data-outputid="1c8adc5b-6edf-4379-81d9-5d4e8048b7f6" data-execution_count="84">
 <div class="sourceCode cell-code" id="cb72"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Displaying the results of the comparison between the Lasso and Interaction models</span></span>
 <span id="cb72-2"><a href="#cb72-2" aria-hidden="true" tabindex="-1"></a>r2_interact <span class="op">=</span> r2_score(y_new, predictions_interact)</span>
 <span id="cb72-3"><a href="#cb72-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -4626,33 +4365,35 @@ dtype: float64</code></pre>
 MSE for Lasso Model: 36014392.94 (Interaction Model MSE: 21785261.85)</code></pre>
 </div>
 </div>
-<p>When comparing the model fitted from the Lasso model with the best model from Part 4 with interactions, the MSE is higher at 36,014,392.94 (lasso) than 21785261.85 (interaction), and R2 explains less of the variability at 77% (Lasso) than 86% (interaction).</p>
+<ul>
+<li>When comparing the model fitted from the Lasso model with the best model from Part 4 with interactions, the MSE is higher at 36,014,392.94 (lasso) than 21785261.85 (interaction), and R2 explains less of the variability at 77% (Lasso) than 86% (interaction).</li>
+</ul>
 <p><em>The relationships between the predictor variables with the charges response variable were further investigated, and it was determined that age, along with age^2, age^3, bmi, log of bmi, and interactions of age and bmi with smoker would produce a better model than the Lasso L1 feature selected model.</em></p>
-<div class="cell" data-execution_count="45">
+<div class="cell" data-execution_count="85">
 <div class="sourceCode cell-code" id="cb74"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Importing libraries</span></span>
 <span id="cb74-2"><a href="#cb74-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb74-3"><a href="#cb74-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb74-4"><a href="#cb74-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LinearRegression</span>
 <span id="cb74-5"><a href="#cb74-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> mean_squared_error, r2_score</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-execution_count="46">
+<div class="cell" data-execution_count="86">
 <div class="sourceCode cell-code" id="cb75"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Importing the datasets</span></span>
 <span id="cb75-2"><a href="#cb75-2" aria-hidden="true" tabindex="-1"></a>original_data <span class="op">=</span> pd.read_csv(<span class="st">&#39;https://www.dropbox.com/s/bocjjyo1ehr5auz/insurance_costs_1.csv?dl=1&#39;</span>)</span>
 <span id="cb75-3"><a href="#cb75-3" aria-hidden="true" tabindex="-1"></a>new_data <span class="op">=</span> pd.read_csv(<span class="st">&#39;https://www.dropbox.com/s/sky86agc4s8c6qe/insurance_costs_2.csv?dl=1&#39;</span>)</span>
 <span id="cb75-4"><a href="#cb75-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb75-5"><a href="#cb75-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Creating dummy variables for categorical variables</span></span>
-<span id="cb75-6"><a href="#cb75-6" aria-hidden="true" tabindex="-1"></a>original_data_encoded <span class="op">=</span> pd.get_dummies(original_data, drop_first<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb75-7"><a href="#cb75-7" aria-hidden="true" tabindex="-1"></a>new_data_encoded <span class="op">=</span> pd.get_dummies(new_data, drop_first<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb75-6"><a href="#cb75-6" aria-hidden="true" tabindex="-1"></a>original_data_dummies <span class="op">=</span> pd.get_dummies(original_data, drop_first<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb75-7"><a href="#cb75-7" aria-hidden="true" tabindex="-1"></a>new_data_dummies <span class="op">=</span> pd.get_dummies(new_data, drop_first<span class="op">=</span><span class="va">True</span>)</span>
 <span id="cb75-8"><a href="#cb75-8" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb75-9"><a href="#cb75-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Transforming &#39;age&#39; by adding squared and cubed terms</span></span>
-<span id="cb75-10"><a href="#cb75-10" aria-hidden="true" tabindex="-1"></a>original_data_encoded[<span class="st">&#39;age_squared&#39;</span>] <span class="op">=</span> original_data_encoded[<span class="st">&#39;age&#39;</span>] <span class="op">**</span> <span class="dv">2</span></span>
-<span id="cb75-11"><a href="#cb75-11" aria-hidden="true" tabindex="-1"></a>original_data_encoded[<span class="st">&#39;age_cubed&#39;</span>] <span class="op">=</span> original_data_encoded[<span class="st">&#39;age&#39;</span>] <span class="op">**</span> <span class="dv">3</span></span>
-<span id="cb75-12"><a href="#cb75-12" aria-hidden="true" tabindex="-1"></a>original_data_encoded[<span class="st">&#39;log_bmi&#39;</span>] <span class="op">=</span> np.log(original_data_encoded[<span class="st">&#39;bmi&#39;</span>])</span>
-<span id="cb75-13"><a href="#cb75-13" aria-hidden="true" tabindex="-1"></a>original_data_encoded[<span class="st">&#39;age_smoker&#39;</span>] <span class="op">=</span> original_data_encoded[<span class="st">&#39;age&#39;</span>] <span class="op">*</span> original_data_encoded[<span class="st">&#39;smoker_yes&#39;</span>]</span>
-<span id="cb75-14"><a href="#cb75-14" aria-hidden="true" tabindex="-1"></a>original_data_encoded[<span class="st">&#39;bmi_smoker&#39;</span>] <span class="op">=</span> original_data_encoded[<span class="st">&#39;bmi&#39;</span>] <span class="op">*</span> original_data_encoded[<span class="st">&#39;smoker_yes&#39;</span>]</span>
+<span id="cb75-10"><a href="#cb75-10" aria-hidden="true" tabindex="-1"></a>original_data_dummies[<span class="st">&#39;age_squared&#39;</span>] <span class="op">=</span> original_data_dummies[<span class="st">&#39;age&#39;</span>] <span class="op">**</span> <span class="dv">2</span></span>
+<span id="cb75-11"><a href="#cb75-11" aria-hidden="true" tabindex="-1"></a>original_data_dummies[<span class="st">&#39;age_cubed&#39;</span>] <span class="op">=</span> original_data_dummies[<span class="st">&#39;age&#39;</span>] <span class="op">**</span> <span class="dv">3</span></span>
+<span id="cb75-12"><a href="#cb75-12" aria-hidden="true" tabindex="-1"></a>original_data_dummies[<span class="st">&#39;log_bmi&#39;</span>] <span class="op">=</span> np.log(original_data_dummies[<span class="st">&#39;bmi&#39;</span>])</span>
+<span id="cb75-13"><a href="#cb75-13" aria-hidden="true" tabindex="-1"></a>original_data_dummies[<span class="st">&#39;age_smoker&#39;</span>] <span class="op">=</span> original_data_dummies[<span class="st">&#39;age&#39;</span>] <span class="op">*</span> original_data_dummies[<span class="st">&#39;smoker_yes&#39;</span>]</span>
+<span id="cb75-14"><a href="#cb75-14" aria-hidden="true" tabindex="-1"></a>original_data_dummies[<span class="st">&#39;bmi_smoker&#39;</span>] <span class="op">=</span> original_data_dummies[<span class="st">&#39;bmi&#39;</span>] <span class="op">*</span> original_data_dummies[<span class="st">&#39;smoker_yes&#39;</span>]</span>
 <span id="cb75-15"><a href="#cb75-15" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb75-16"><a href="#cb75-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Defining the response variable for the original data</span></span>
-<span id="cb75-17"><a href="#cb75-17" aria-hidden="true" tabindex="-1"></a>y_original <span class="op">=</span> original_data_encoded[<span class="st">&#39;charges&#39;</span>]</span>
+<span id="cb75-17"><a href="#cb75-17" aria-hidden="true" tabindex="-1"></a>y_original <span class="op">=</span> original_data_dummies[<span class="st">&#39;charges&#39;</span>]</span>
 <span id="cb75-18"><a href="#cb75-18" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb75-19"><a href="#cb75-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Selecting the columns for the model</span></span>
 <span id="cb75-20"><a href="#cb75-20" aria-hidden="true" tabindex="-1"></a>columns_for_model <span class="op">=</span> [</span>
@@ -4662,26 +4403,26 @@ MSE for Lasso Model: 36014392.94 (Interaction Model MSE: 21785261.85)</code></pr
 <span id="cb75-24"><a href="#cb75-24" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb75-25"><a href="#cb75-25" aria-hidden="true" tabindex="-1"></a><span class="co"># Fitting the model on the original data</span></span>
 <span id="cb75-26"><a href="#cb75-26" aria-hidden="true" tabindex="-1"></a>lr_custom <span class="op">=</span> LinearRegression()</span>
-<span id="cb75-27"><a href="#cb75-27" aria-hidden="true" tabindex="-1"></a>lr_custom.fit(original_data_encoded[columns_for_model], y_original)</span>
+<span id="cb75-27"><a href="#cb75-27" aria-hidden="true" tabindex="-1"></a>lr_custom.fit(original_data_dummies[columns_for_model], y_original)</span>
 <span id="cb75-28"><a href="#cb75-28" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb75-29"><a href="#cb75-29" aria-hidden="true" tabindex="-1"></a><span class="co"># Applying the same transformations to the new data</span></span>
-<span id="cb75-30"><a href="#cb75-30" aria-hidden="true" tabindex="-1"></a>new_data_encoded[<span class="st">&#39;age_squared&#39;</span>] <span class="op">=</span> new_data_encoded[<span class="st">&#39;age&#39;</span>] <span class="op">**</span> <span class="dv">2</span></span>
-<span id="cb75-31"><a href="#cb75-31" aria-hidden="true" tabindex="-1"></a>new_data_encoded[<span class="st">&#39;age_cubed&#39;</span>] <span class="op">=</span> new_data_encoded[<span class="st">&#39;age&#39;</span>] <span class="op">**</span> <span class="dv">3</span></span>
-<span id="cb75-32"><a href="#cb75-32" aria-hidden="true" tabindex="-1"></a>new_data_encoded[<span class="st">&#39;log_bmi&#39;</span>] <span class="op">=</span> np.log(new_data_encoded[<span class="st">&#39;bmi&#39;</span>])</span>
-<span id="cb75-33"><a href="#cb75-33" aria-hidden="true" tabindex="-1"></a>new_data_encoded[<span class="st">&#39;age_smoker&#39;</span>] <span class="op">=</span> new_data_encoded[<span class="st">&#39;age&#39;</span>] <span class="op">*</span> new_data_encoded[<span class="st">&#39;smoker_yes&#39;</span>]</span>
-<span id="cb75-34"><a href="#cb75-34" aria-hidden="true" tabindex="-1"></a>new_data_encoded[<span class="st">&#39;bmi_smoker&#39;</span>] <span class="op">=</span> new_data_encoded[<span class="st">&#39;bmi&#39;</span>] <span class="op">*</span> new_data_encoded[<span class="st">&#39;smoker_yes&#39;</span>]</span>
+<span id="cb75-30"><a href="#cb75-30" aria-hidden="true" tabindex="-1"></a>new_data_dummies[<span class="st">&#39;age_squared&#39;</span>] <span class="op">=</span> new_data_dummies[<span class="st">&#39;age&#39;</span>] <span class="op">**</span> <span class="dv">2</span></span>
+<span id="cb75-31"><a href="#cb75-31" aria-hidden="true" tabindex="-1"></a>new_data_dummies[<span class="st">&#39;age_cubed&#39;</span>] <span class="op">=</span> new_data_dummies[<span class="st">&#39;age&#39;</span>] <span class="op">**</span> <span class="dv">3</span></span>
+<span id="cb75-32"><a href="#cb75-32" aria-hidden="true" tabindex="-1"></a>new_data_dummies[<span class="st">&#39;log_bmi&#39;</span>] <span class="op">=</span> np.log(new_data_dummies[<span class="st">&#39;bmi&#39;</span>])</span>
+<span id="cb75-33"><a href="#cb75-33" aria-hidden="true" tabindex="-1"></a>new_data_dummies[<span class="st">&#39;age_smoker&#39;</span>] <span class="op">=</span> new_data_dummies[<span class="st">&#39;age&#39;</span>] <span class="op">*</span> new_data_dummies[<span class="st">&#39;smoker_yes&#39;</span>]</span>
+<span id="cb75-34"><a href="#cb75-34" aria-hidden="true" tabindex="-1"></a>new_data_dummies[<span class="st">&#39;bmi_smoker&#39;</span>] <span class="op">=</span> new_data_dummies[<span class="st">&#39;bmi&#39;</span>] <span class="op">*</span> new_data_dummies[<span class="st">&#39;smoker_yes&#39;</span>]</span>
 <span id="cb75-35"><a href="#cb75-35" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb75-36"><a href="#cb75-36" aria-hidden="true" tabindex="-1"></a><span class="co"># Predicting on the new data</span></span>
-<span id="cb75-37"><a href="#cb75-37" aria-hidden="true" tabindex="-1"></a>y_custom_pred <span class="op">=</span> lr_custom.predict(new_data_encoded[columns_for_model])</span>
+<span id="cb75-37"><a href="#cb75-37" aria-hidden="true" tabindex="-1"></a>y_custom_pred <span class="op">=</span> lr_custom.predict(new_data_dummies[columns_for_model])</span>
 <span id="cb75-38"><a href="#cb75-38" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb75-39"><a href="#cb75-39" aria-hidden="true" tabindex="-1"></a><span class="co"># Defining the response variable for the new data</span></span>
-<span id="cb75-40"><a href="#cb75-40" aria-hidden="true" tabindex="-1"></a>y_new <span class="op">=</span> new_data_encoded[<span class="st">&#39;charges&#39;</span>]</span>
+<span id="cb75-40"><a href="#cb75-40" aria-hidden="true" tabindex="-1"></a>y_new <span class="op">=</span> new_data_dummies[<span class="st">&#39;charges&#39;</span>]</span>
 <span id="cb75-41"><a href="#cb75-41" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb75-42"><a href="#cb75-42" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculating the performance metrics on the new data</span></span>
 <span id="cb75-43"><a href="#cb75-43" aria-hidden="true" tabindex="-1"></a>mse_custom_data <span class="op">=</span> mean_squared_error(y_new, y_custom_pred)</span>
 <span id="cb75-44"><a href="#cb75-44" aria-hidden="true" tabindex="-1"></a>r2_custom_data <span class="op">=</span> r2_score(y_new, y_custom_pred)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-outputid="d5b8cfc8-57cb-4f7e-c0f1-bcacf828bb99" data-execution_count="42">
+<div class="cell" data-outputid="be8bb5e2-360a-45ad-b017-161176cc8c7e" data-execution_count="87">
 <div class="sourceCode cell-code" id="cb76"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb76-1"><a href="#cb76-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> plotnine <span class="im">import</span> ggplot, aes, geom_point, geom_hline, labs</span>
 <span id="cb76-2"><a href="#cb76-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb76-3"><a href="#cb76-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculating the residuals on the new data</span></span>
@@ -4703,7 +4444,7 @@ MSE for Lasso Model: 36014392.94 (Interaction Model MSE: 21785261.85)</code></pr
 <pre><code></code></pre>
 </div>
 </div>
-<div class="cell" data-outputid="2e24b03d-bfd7-47c9-cf01-0d9f57bae717" data-execution_count="43">
+<div class="cell" data-outputid="8745185b-448c-4c27-e447-65b48c279220" data-execution_count="88">
 <div class="sourceCode cell-code" id="cb78"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb78-1"><a href="#cb78-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Displaying the results of the comparison between the Custom and the Lasso Model, along with the Interaction Model</span></span>
 <span id="cb78-2"><a href="#cb78-2" aria-hidden="true" tabindex="-1"></a>r2_lasso <span class="op">=</span> r2_score(y_new, y_lasso_pred)</span>
 <span id="cb78-3"><a href="#cb78-3" aria-hidden="true" tabindex="-1"></a></span>
