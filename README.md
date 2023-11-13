@@ -4,3 +4,4 @@
 *    lab3 The 12 Days of Christmas
 *    lab4 Coffee Lovers Unite
 *    lab5 Insurance Costs
+*    lab6 Baseball Players
