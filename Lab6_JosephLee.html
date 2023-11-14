@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Joseph Lee">
-<meta name="dcterms.date" content="2023-11-13">
+<meta name="dcterms.date" content="2023-11-05">
 
 <title>GSB544 Lab 6: Variable Selection and Regularization</title>
 <style>
@@ -3157,7 +3157,7 @@ return!"\t\n\x0B\f\r                　\u2028\u2029
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">November 13, 2023</p>
+      <p class="date">November 5, 2023</p>
     </div>
   </div>
   
@@ -6297,8 +6297,10 @@ Results of Feature Set 4: All Variables as Predictor
 </div>
 </div>
 <ul>
-<li>The results reported different <span class="math inline">\(\lambda\)</span>’s across all the Feature Sets. Several factors may have contributed to this as the different feature sets had varying levels of complexity. Feature set 1 had only 1 variable, Feature set 2 had the 5 best numerical variables, and Feature set 3 had those 5 best numerical variables along with their interactions with the best categorical variable. Different values of lambda was required to prevent overfitting as compared to the simplicity of Feature Set 1.</li>
+<li>The results reported different <span class="math inline">\(\lambda\)</span>’s across all the Feature Sets. Feature set 1 had only 1 variable, Feature set 2 had the 5 best numerical variables, and Feature set 3 had those 5 best numerical variables along with their interactions with the best categorical variable. Different values of lambda were required to prevent overfitting as compared to the simplicity of Feature Set 1.</li>
 <li>The number of features might have also influenced the value of lambda in the Lasso model, as there are more features, there’s a higher risk of overfitting and thus requires stronger regularization.</li>
+<li>The MSE’s were different across all the Feature Set’s with Feature Set 4 with all the predictors having the lowest MSE of 105354.06.</li>
+<li>Several factors may have contributed to this as the different feature sets had varying levels of complexity.</li>
 </ul>
 <p><strong>C. Elastic Net</strong></p>
 <p>Compare your MSEs for the Elastic Net models with those for the Ridge and LASSO models. Why does it make sense that Elastic Net always “wins”?</p>
