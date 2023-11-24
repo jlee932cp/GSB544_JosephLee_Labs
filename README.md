@@ -5,3 +5,4 @@
 *    lab4 Coffee Lovers Unite
 *    lab5 Insurance Costs
 *    lab6 Baseball Players
+*    lab7 Heart Attack
