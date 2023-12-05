@@ -6,3 +6,4 @@
 *    lab5 Insurance Costs
 *    lab6 Baseball Players
 *    lab7 Heart Attack
+*    lab8 Cannabis Types
